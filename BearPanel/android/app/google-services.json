@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1052257988964",
+    "project_id": "bearpanel-eb74e",
+    "storage_bucket": "bearpanel-eb74e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052257988964:android:a562eab20e354243d04a71",
+        "android_client_info": {
+          "package_name": "com.bearpanel.university"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052257988964-ocff4gij4b7d8jsvoiqtf8g54aaj5trd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bearpanel.university",
+            "certificate_hash": "69f8aa342c183899a7384dbbb39444ba41d85fc7"
+          }
+        },
+        {
+          "client_id": "1052257988964-c3hf967t5nnfn1jakbvv7hr71uj0m82q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACAet6vTMTUQJw-tO5tXG28WWWkXuIqOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052257988964-c3hf967t5nnfn1jakbvv7hr71uj0m82q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
