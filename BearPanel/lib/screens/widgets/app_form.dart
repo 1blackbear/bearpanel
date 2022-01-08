@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 class CustomForm extends StatefulWidget {
   Function(String) onChanged;
-  dynamic validator;
   TextInputType  keyboardType;
   String initialValue;
   final bool enabled;
   final String hintText;
-  CustomForm ({ Key ?key, required this.enabled, required this.initialValue, required this.hintText, required this.onChanged, required this.keyboardType, required this.validator}): super(key: key);
+  CustomForm ({ Key ?key, required this.enabled, required this.initialValue, required this.hintText, required this.onChanged, required this.keyboardType}): super(key: key);
   @override
   _CustomFormState createState() => _CustomFormState();
 }
@@ -37,7 +36,6 @@ class _CustomFormState extends State<CustomForm> {
       keyboardType: widget.keyboardType,
       initialValue: widget.initialValue,
       enabled: widget.enabled,
-      validator:widget.validator,
       onChanged: (val) {
         widget.onChanged(formValue = val);
       },

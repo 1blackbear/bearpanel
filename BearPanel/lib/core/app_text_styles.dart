@@ -32,7 +32,7 @@ class AppTextStyles {
     decoration: TextDecoration.underline,
   );
 
-  static final TextStyle btnLogin = GoogleFonts.roboto(
+  static final TextStyle btnStyle = GoogleFonts.roboto(
     color: Colors.white,
     fontSize: 24,
     fontWeight: FontWeight.w500,

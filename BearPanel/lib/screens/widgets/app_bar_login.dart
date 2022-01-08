@@ -1,5 +1,3 @@
-import 'package:bearpanel/models/user.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppBarLoginWidget extends PreferredSize {
@@ -11,7 +9,6 @@ class AppBarLoginWidget extends PreferredSize {
       child: Container(
             color: const Color(0xFF707070),
           ),
-          //Align(alignment: Alignment(0, 1), child: ScoreCardWidget()),
     ),
   );
 }

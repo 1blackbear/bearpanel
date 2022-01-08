@@ -17,7 +17,7 @@ abstract class AuthBase {
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User? usuario;
+  User? user_state;
   bool isLoading = true;
 
   AuthService() {
@@ -26,14 +26,14 @@ class AuthService extends ChangeNotifier {
 
   _authCheck() {
     _auth.authStateChanges().listen((User? user) {
-      usuario = (user == null) ? null : user;
+      user_state = (user == null) ? null : user;
       isLoading = false;
       notifyListeners();
     });
   }
 
   _getUser() {
-    usuario = _auth.currentUser;
+    user_state = _auth.currentUser;
     notifyListeners();
   }
 
