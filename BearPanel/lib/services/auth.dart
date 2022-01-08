@@ -43,12 +43,12 @@ class AuthService extends ChangeNotifier {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      _getUser();
-      /*if (!(user!.emailVerified)) {
+      User? user = result.user;
+      if (!(user!.emailVerified)) {
         return 2;
       } else {
-        return _userFromFirebaseUser(user);
-      }*/
+        _getUser();
+      }
     } on FirebaseAuthException catch  (e) {
       print('Failed with error code: ${e.code}');
       if (e.code == 'wrong-password') {
@@ -116,8 +116,7 @@ class AuthService extends ChangeNotifier {
           //User logging in for the first time
           // Redirect user to tutorial
         }
-
-        return userCredential;
+        _getUser();
       }
     }
   }
@@ -139,6 +138,7 @@ class AuthService extends ChangeNotifier {
           await DatabaseService(uid: user!.uid).updateUserData(nome);//User logging in for the first time
           // Redirect user to tutorial
         }
+        _getUser();
         return userCredential.user;
       case FacebookLoginStatus.cancel:
         throw FirebaseAuthException(
