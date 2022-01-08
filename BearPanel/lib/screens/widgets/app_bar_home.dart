@@ -20,30 +20,36 @@ class AppBarHome extends PreferredSize {
             height: 200,
             width: double.maxFinite,
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            decoration: BoxDecoration(gradient: LinearGradient(colors: [
-              Color(0xFF707070),
-              Colors.white
-            ], stops: [
-              0.0,
-              0.695
-            ], transform: GradientRotation(2.13959913 * pi))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+               image: AssetImage('images/background.jpg'),
+                  fit: BoxFit.fill
+              )
+            ),
+            child: Stack(
               children: [
-                Text.rich(TextSpan(
-                    text: 'Boa tarde, ',
-                    style: AppTextStyles.timeStyle,
-                    children: [
-                      TextSpan(
-                        text: '\n${user!.name.split(" ")[0]}',
-                        style: AppTextStyles.nameStyle,
-                      )
-                    ])),
-                GestureDetector(
-                  onTap: () async {
-                    await auth.signOut();
-                  },
-                  child: Icon(Icons.logout, size: 30, color: Colors.black)
+                Positioned(
+                  left: 0,
+                  top: 65,
+                  child: Text.rich(TextSpan(
+                      text: 'Boa tarde, ',
+                      style: AppTextStyles.timeStyle,
+                      children: [
+                        TextSpan(
+                          text: '\n${user!.name.split(" ")[0]}',
+                          style: AppTextStyles.nameStyle,
+                        )
+                      ])),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 70,
+                  child: GestureDetector(
+                    onTap: () async {
+                      await auth.signOut();
+                    },
+                    child: Icon(Icons.logout, size: 32, color: Colors.white)
+                  ),
                 ),
 
               ],
