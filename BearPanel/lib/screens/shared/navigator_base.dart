@@ -1,6 +1,8 @@
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/disciplines_page.dart';
 import 'package:bearpanel/screens/home/home_page.dart';
+import 'package:bearpanel/screens/profile/profile.dart';
+import 'package:bearpanel/screens/statistic/statistic_page.dart';
 import 'package:bearpanel/screens/widgets/app_navigator.dart';
 import 'package:bearpanel/screens/widgets/loading.dart';
 import 'package:bearpanel/services/auth.dart';
@@ -37,19 +39,19 @@ class _NavigatorBaseState extends State<NavigatorBase> {
           return
             Scaffold(
                 backgroundColor: Color(0xFFF5F5F5),
-                bottomNavigationBar: BottomNavigator(controller: pageViewController),
+                bottomNavigationBar: AnimatedBuilder(
+                  animation: pageViewController,
+                    builder:(context, snapshot) { return BottomNavigator(controller: pageViewController);}
+                ),
                 body: PageView(
                   controller: pageViewController,
                   children: [
                     HomePage(data: userData!, auth: auth,),
-                    DisciplinesPage()
+                    DisciplinesPage(),
+                    StatisticPage(),
+                    ProfilePage()
                   ],
-                ) /*Column(children: [
-                AppBarHome(
-                  user: userData,
-                  auth: auth,
-                ),
-              ]),*/
+                )
             );
         } else {
           return Loading();
