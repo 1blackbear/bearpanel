@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/authenticate/sing_in.dart';
-import 'package:bearpanel/screens/home/start_page.dart';
+import 'package:bearpanel/screens/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';

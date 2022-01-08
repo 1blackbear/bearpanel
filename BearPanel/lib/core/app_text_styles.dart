@@ -44,6 +44,21 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static final TextStyle mediaStyle = GoogleFonts.roboto(
+    color: Color(0xFF4e4e4e),
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+  );
 
+  static final TextStyle timeStyle = GoogleFonts.roboto(
+    color: Colors.white,
+    fontSize: 30,
+    fontWeight: FontWeight.normal,
+  );
 
+  static final TextStyle nameStyle = GoogleFonts.roboto(
+    color: Colors.white,
+    fontSize: 25,
+    fontWeight: FontWeight.normal,
+  );
 }
