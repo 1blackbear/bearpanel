@@ -1,4 +1,4 @@
-package com.example.projects
+package com.bearpanel.university
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -139,7 +139,7 @@ class AuthService extends ChangeNotifier {
           // Redirect user to tutorial
         }
         _getUser();
-        return userCredential.user;
+        break;
       case FacebookLoginStatus.cancel:
         throw FirebaseAuthException(
           code: 'ERROR_ABORTED_BY_USER',
