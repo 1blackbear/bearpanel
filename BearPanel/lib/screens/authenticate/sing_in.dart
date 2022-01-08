@@ -1,11 +1,12 @@
+import 'package:bearpanel/core/app_text_styles.dart';
+import 'package:bearpanel/screens/authenticate/sign_up.dart';
 import 'package:bearpanel/screens/widgets/app_bar_login.dart';
 import 'package:bearpanel/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  SignIn({required this.toggleView});
+
 
   @override
   _SignInState createState() => _SignInState();
@@ -26,8 +27,6 @@ class _SignInState extends State<SignIn> {
       backgroundColor: const Color(0xFF707070),
         appBar: AppBarLoginWidget(),
         body: Container(
-            width: double.infinity,
-            height: double.infinity,
             decoration: const BoxDecoration(
               color: Color(0xFFF5F5F5),
                 borderRadius: BorderRadius.only(
@@ -40,18 +39,18 @@ class _SignInState extends State<SignIn> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 35,
+                    height: 25,
                   ),
-                  const Text("Fazer Log-in"),
+                  Text('Fazer Log-in', style: AppTextStyles.titleForm),
 
                   const SizedBox(
-                    height: 35,
+                    height: 30,
                   ),
 
-                  Text('Email'),
+                  Text('Email', style:AppTextStyles.descForm),
                   TextFormField(
                     //form field name
-                    cursorColor: Color(0xFF6848AE),
+                    cursorColor: Color(0xFF707070),
                     decoration: InputDecoration(
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -72,10 +71,10 @@ class _SignInState extends State<SignIn> {
                   ),
 
                   const SizedBox(
-                    height: 35,
+                    height: 20,
                   ),
 
-                  Text('Senha'),
+                  Text('Senha', style:AppTextStyles.descForm),
                   TextFormField(
                       obscureText: !_showPassword,
                       validator: (val) => val!.isEmpty ? '' : null,
@@ -103,19 +102,40 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
 
-                  const SizedBox(
-                    height: 35,
-                  ),
 
                   Container(
-                    //padding: EdgeInsets.symmetric(vertical: 25.0),
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        /*Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ForgotPassword()),
+                        );*/
+                      },
+                      style: TextButton.styleFrom(
+                          padding: EdgeInsets.only(right: 0.0)
+                      ),
+                      child: Text(
+                        'Esqueceu a senha?',
+                        style: AppTextStyles.miniForm
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 23,
+                  ),
+
+                  SizedBox (
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
                         setState(() {
                           loading = true;
                         });
-                        if (_formkey.currentState!.validate()) {
+
+
+                          print("entrou");
                           dynamic result =
                           await _auth.signInWithEmailAndPassword(email, password);
                           switch (result) {
@@ -132,7 +152,7 @@ class _SignInState extends State<SignIn> {
                               loading = true;
                               break;
                           }
-                        }
+
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 5,
@@ -142,19 +162,97 @@ class _SignInState extends State<SignIn> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Login',
-                        style: TextStyle(
-                          color: Colors.white,
-                          letterSpacing: 1.5,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Roboto',
-                        ),
+                        style: AppTextStyles.btnLogin,
                       ),
                     ),
                   ),
 
+                  const SizedBox(
+                    height: 5,
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Não possui uma conta? ',
+                        style: AppTextStyles.mediumForm,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp())
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.only(right: 0.0)
+                        ),
+                        child: Text(
+                            'Cadastre-se!',
+                            style: AppTextStyles.linkForm
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 1,
+                        width: 85,
+                        color: Color(0xFF525151),
+                      ),
+                      Text(
+                          '     Ou faça log-in com     ',
+                          style: AppTextStyles.miniForm
+                      ),
+                      Container(
+                        height: 1,
+                        width: 85,
+                        color: Color(0xFF525151),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 15,
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          onTap: () {print('click on edit');},
+                          child: const Icon(Icons.facebook_rounded, color: Color(0xFF707070),size: 50,)
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+
+                      Container(
+                        width: 43,
+                        height: 43,
+                        decoration: const BoxDecoration(
+                            color: Color(0xFF707070),
+                            shape: BoxShape.circle,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                          Text("G", style: AppTextStyles.googleBtn,)
+                        ],),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             )
@@ -173,12 +271,13 @@ class _SignInState extends State<SignIn> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-
+                Navigator.pop(
+                  context);
               },
               child: Text(
                 'Voltar',
                 style: TextStyle(
-                  color: Color(0xFF6848AE),
+                  color: Color(0xFF707070),
                 ),
               ),
             ),

@@ -1,11 +1,14 @@
-
 import 'dart:io';
-
+import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/authenticate/sing_in.dart';
 import 'package:bearpanel/screens/home/start_page.dart';
+import 'package:bearpanel/screens/widgets/loading.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'auth.dart';
 
 
 class Authenticate extends StatefulWidget {
@@ -33,12 +36,24 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    if (_auth.currentUser != null) {
+    AuthService auth = Provider.of<AuthService>(context);
+
+    if (auth.isLoading)
+      return Loading();
+    else if (auth.usuario == null)
+      return SignIn();
+    else
+      return HomePage();
+  }
+  /*
+    final user = Provider.of<Users?>(context);
+
+    if (user != null) {
       return HomePage();
     } else {
-      return SignIn(toggleView: toggleView);
+      return SignIn();
     }
-
+*/
     /*if (showSignIn) {
       if (_checkInternetConnectivity() == 0) {
         _showDialog();
@@ -52,8 +67,9 @@ class _AuthenticateState extends State<Authenticate> {
            SignUp(toggleView: toggleView);
       }
     }*/
-  }
-  _showDialog() {
+}
+
+  /*_showDialog() {
     showDialog(
         context: context,
         builder: (context) {
@@ -84,7 +100,7 @@ class _AuthenticateState extends State<Authenticate> {
         }
     );
   }
-}
+}*/
 
 
 

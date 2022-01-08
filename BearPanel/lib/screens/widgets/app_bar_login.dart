@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 class AppBarLoginWidget extends PreferredSize {
   AppBarLoginWidget({Key? key})
       : super(key: key,
-    preferredSize: const Size.fromHeight(350),
+    preferredSize: const Size.fromHeight(250),
     child: SizedBox(
-      height: 350,
+      height: 250,
       child: Container(
             color: const Color(0xFF707070),
           ),

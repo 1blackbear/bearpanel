@@ -7,17 +7,13 @@ import 'package:provider/provider.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
-  Users u = Users(uid: "default");
+
     @override
     Widget build(BuildContext context) {
-      return StreamProvider<Users?>.value(
-        value: AuthService().user,
-        initialData: u,
-        child: MaterialApp(
-          home: Authenticate(),
-          debugShowCheckedModeBanner: false,
-          title: 'BearPanel',
-        ),
+      return MaterialApp(
+        home: Authenticate(),
+        debugShowCheckedModeBanner: false,
+        title: 'BearPanel',
       );
   }
 }

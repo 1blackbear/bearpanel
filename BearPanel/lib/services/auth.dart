@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:bearpanel/models/user.dart';
+import 'package:bearpanel/screens/authenticate/sing_in.dart';
+import 'package:bearpanel/screens/home/start_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import 'database.dart';
 
 
@@ -13,17 +15,26 @@ abstract class AuthBase {
   Future signInWithFacebook();
 }
 
-class AuthService {
+class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? usuario;
+  bool isLoading = true;
 
-  //create user obj based on firebaseUser
-  Users _userFromFirebaseUser(User? user) {
-    return Users(uid: user!.uid);
+  AuthService() {
+    _authCheck();
   }
 
-  //auth change user stream
-  Stream<Users?> get user {
-    return _auth.authStateChanges().map((User? firebaseUser) => (firebaseUser != null) ? _userFromFirebaseUser as Users : null,);
+  _authCheck() {
+    _auth.authStateChanges().listen((User? user) {
+      usuario = (user == null) ? null : user;
+      isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  _getUser() {
+    usuario = _auth.currentUser;
+    notifyListeners();
   }
 
 
@@ -32,12 +43,12 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      User? user = result.user;
-      if (!(user!.emailVerified)) {
+      _getUser();
+      /*if (!(user!.emailVerified)) {
         return 2;
       } else {
         return _userFromFirebaseUser(user);
-      }
+      }*/
     } on FirebaseAuthException catch  (e) {
       print('Failed with error code: ${e.code}');
       if (e.code == 'wrong-password') {
@@ -56,7 +67,7 @@ class AuthService {
       //create a document for the user with the uid
       await DatabaseService(uid: user!.uid).updateUserData(nome);
       user.sendEmailVerification();
-      return  _userFromFirebaseUser(user);
+      _getUser();
     } on FirebaseAuthException catch  (e) {
       print('Failed with error code: ${e.code}');
       if (e.code == 'email-already-in-use') {
@@ -70,7 +81,8 @@ class AuthService {
   //sing out
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      await _auth.signOut();
+      _getUser();
     } catch (e) {
       print(e.toString());
       return null;
@@ -99,8 +111,8 @@ class AuthService {
             GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken));
         User? user = userCredential.user;
         if (userCredential.additionalUserInfo!.isNewUser) {
-          String nome = user!.displayName.toString();
-          await DatabaseService(uid: user.uid).updateUserData(nome);
+          String nome = user != null ? user.displayName.toString() : "";
+          await DatabaseService(uid: user!.uid).updateUserData(nome);
           //User logging in for the first time
           // Redirect user to tutorial
         }
