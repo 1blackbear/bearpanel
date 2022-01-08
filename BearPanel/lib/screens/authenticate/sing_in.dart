@@ -24,243 +24,252 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment(0.0, 0.0),
-              end: Alignment(0.5, 0.3),
-              colors: [Color(0xFF707070), Color(0xFFF5F5F5)])),
       child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBarLoginWidget(),
+          backgroundColor: Color(0xFF707070),
           body:
-           Container(
-                decoration: const BoxDecoration(
-                    color: Color(0xFFF5F5F5),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
-                    )),
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        Text('Fazer Log-in', style: AppTextStyles.titleForm),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Text('Email', style: AppTextStyles.descForm),
-                        TextFormField(
-                          //form field name
-                          cursorColor: Color(0xFF707070),
-                          decoration: InputDecoration(
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFF525151),
-                                width: 2.0,
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.only(top: 8, bottom: 8),
-                            hintText: 'Digite o seu email',
-                            hintStyle: TextStyle(
-                              color: Colors.black.withOpacity(0.4),
-                              fontSize: 14.0,
-                            ),
-                          ),
-                          onChanged: (val) {
-                            setState(() => email = val);
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text('Senha', style: AppTextStyles.descForm),
-                        TextFormField(
-                          obscureText: !_showPassword,
-                          validator: (val) => val!.isEmpty ? '' : null,
-                          onChanged: (val) {
-                            setState(() => password = val);
-                          },
-                          decoration: InputDecoration(
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _showPassword = !_showPassword;
-                                });
-                              },
-                              child: Icon(
-                                _showPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: const Color(0xFF4e4e4e),
-                              ),
-                            ),
-                            contentPadding:
-                                const EdgeInsets.only(top: 14.0, bottom: 8.0),
-                            hintText: 'Digite sua senha',
-                            hintStyle: TextStyle(
-                              color: Colors.black.withOpacity(0.4),
-                              fontSize: 14.0,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ForgotPassword()),
-                              );
-                            },
-                            style: TextButton.styleFrom(
-                                padding: EdgeInsets.only(right: 0.0)),
-                            child: Text('Esqueceu a senha?',
-                                style: AppTextStyles.miniForm),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 23,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              setState(() {
-                                loading = true;
-                              });
-
-                              dynamic result = await _auth.signInWithEmailAndPassword(
-                                  email, password);
-                              switch (result) {
-                                case 1:
-                                  loading = false;
-                                  setState(() => error = 'Email ou senha incorretos');
-                                  break;
-                                case 2:
-                                  loading = false;
-                                  _auth.signOut();
-                                  _showDialog();
-                                  break;
-                                default:
-                                  loading = true;
-                                  break;
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              elevation: 5,
-                              primary: const Color(0xFF707070),
-                              padding: const EdgeInsets.all(15.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                            ),
-                            child: Text(
-                              'Login',
-                              style: AppTextStyles.btnLogin,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Não possui uma conta? ',
-                              style: AppTextStyles.mediumForm,
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignUp()));
-                              },
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.only(right: 0.0)),
-                              child:
-                                  Text('Cadastre-se!', style: AppTextStyles.linkForm),
+           SingleChildScrollView(
+             child: Column(
+               children:[
+                 AppBarLoginWidget(),
+                 Container(
+                   height: MediaQuery.of(context).size.height / 1.4516,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF4e4e4e),
+                              spreadRadius: 0,
+                              blurRadius: 55,
+                              offset: Offset(0, -16), // changes position of shadow
                             ),
                           ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 1,
-                              width: 85,
-                              color: Color(0xFF525151),
-                            ),
-                            Text('     Ou faça log-in com     ',
-                                style: AppTextStyles.miniForm),
-                            Container(
-                              height: 1,
-                              width: 85,
-                              color: Color(0xFF525151),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  _auth.signInWithFacebook();
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25.0),
+                            topRight: Radius.circular(25.0),
+                          )),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Text('Fazer Log-in', style: AppTextStyles.titleForm),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Text('Email', style: AppTextStyles.descForm),
+                              TextFormField(
+                                //form field name
+                                cursorColor: Color(0xFF707070),
+                                decoration: InputDecoration(
+                                  focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF525151),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.only(top: 8, bottom: 8),
+                                  hintText: 'Digite o seu email',
+                                  hintStyle: TextStyle(
+                                    color: Colors.black.withOpacity(0.4),
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                                onChanged: (val) {
+                                  setState(() => email = val);
                                 },
-                                child: const Icon(
-                                  Icons.facebook_rounded,
-                                  color: Color(0xFF707070),
-                                  size: 50,
-                                )),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                _auth.signInWithGoogle();
-                              },
-                              child: Container(
-                                width: 43,
-                                height: 43,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF707070),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "G",
-                                      style: AppTextStyles.googleBtn,
-                                    )
-                                  ],
-                                ),
-
-
                               ),
-                            )
-                          ],
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text('Senha', style: AppTextStyles.descForm),
+                              TextFormField(
+                                obscureText: !_showPassword,
+                                validator: (val) => val!.isEmpty ? '' : null,
+                                onChanged: (val) {
+                                  setState(() => password = val);
+                                },
+                                decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _showPassword = !_showPassword;
+                                      });
+                                    },
+                                    child: Icon(
+                                      _showPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: const Color(0xFF4e4e4e),
+                                    ),
+                                  ),
+                                  contentPadding:
+                                      const EdgeInsets.only(top: 14.0, bottom: 8.0),
+                                  hintText: 'Digite sua senha',
+                                  hintStyle: TextStyle(
+                                    color: Colors.black.withOpacity(0.4),
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => ForgotPassword()),
+                                    );
+                                  },
+                                  style: TextButton.styleFrom(
+                                      padding: EdgeInsets.only(right: 0.0)),
+                                  child: Text('Esqueceu a senha?',
+                                      style: AppTextStyles.miniForm),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 23,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      loading = true;
+                                    });
+
+                                    dynamic result = await _auth.signInWithEmailAndPassword(
+                                        email, password);
+                                    switch (result) {
+                                      case 1:
+                                        loading = false;
+                                        setState(() => error = 'Email ou senha incorretos');
+                                        break;
+                                      case 2:
+                                        loading = false;
+                                        _auth.signOut();
+                                        _showDialog();
+                                        break;
+                                      default:
+                                        loading = true;
+                                        break;
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 5,
+                                    primary: const Color(0xFF707070),
+                                    padding: const EdgeInsets.all(15.0),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Login',
+                                    style: AppTextStyles.btnLogin,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Não possui uma conta? ',
+                                    style: AppTextStyles.mediumForm,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SignUp()));
+                                    },
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.only(right: 0.0)),
+                                    child:
+                                        Text('Cadastre-se!', style: AppTextStyles.linkForm),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 1,
+                                    width: 85,
+                                    color: Color(0xFF525151),
+                                  ),
+                                  Text('     Ou faça log-in com     ',
+                                      style: AppTextStyles.miniForm),
+                                  Container(
+                                    height: 1,
+                                    width: 85,
+                                    color: Color(0xFF525151),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                      onTap: () {
+                                        _auth.signInWithFacebook();
+                                      },
+                                      child: const Icon(
+                                        Icons.facebook_rounded,
+                                        color: Color(0xFF707070),
+                                        size: 50,
+                                      )),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _auth.signInWithGoogle();
+                                    },
+                                    child: Container(
+                                      width: 43,
+                                      height: 43,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF707070),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "G",
+                                            style: AppTextStyles.googleBtn,
+                                          )
+                                        ],
+                                      ),
+
+
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
+                   ),
+               ]
+             ),
+           ),
 
       ),
     );
