@@ -10,6 +10,12 @@ class StatisticPage extends StatefulWidget {
 class _StatisticPageState extends State<StatisticPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("Página de Estatísticas\n em breve", style: TextStyle(color: Color(0xFFB5ACAC), fontSize: 25),textAlign: TextAlign.center,)
+      ],
+    );
   }
 }

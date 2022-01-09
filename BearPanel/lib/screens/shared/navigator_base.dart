@@ -49,7 +49,7 @@ class _NavigatorBaseState extends State<NavigatorBase> {
                     HomePage(data: userData!, auth: auth,),
                     DisciplinesPage(),
                     StatisticPage(),
-                    ProfilePage()
+                    ProfilePage(auth: auth,)
                   ],
                 )
             );
