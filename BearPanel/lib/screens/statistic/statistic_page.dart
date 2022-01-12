@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class StatisticPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _StatisticPageState extends State<StatisticPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Página de Estatísticas\n em breve", style: TextStyle(color: Color(0xFFB5ACAC), fontSize: 25),textAlign: TextAlign.center,)
+        Text("Página de Estatísticas\n em breve", style: AppTextStyles.emptyStyle,textAlign: TextAlign.center,)
       ],
     );
   }

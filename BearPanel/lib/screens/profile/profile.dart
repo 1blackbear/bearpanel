@@ -17,30 +17,31 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       children: [
         AppBarLoginWidget(),
-        Expanded(
-          child: ListView(
-            children: [
-              ListTile(
-                title: Text('Dados Pessoais'),
-                leading: Icon(Icons.person),
-              ),
-              ListTile(
-                title: Text('Histórico'),
-                leading: Icon(Icons.history),
-              ),
-              ListTile(
-                title: Text('Configurações'),
-                leading: Icon(Icons.settings),
-              ),
-              ListTile(
-                title: Text('Sair'),
-                leading: Icon(Icons.logout),
-                onTap: () async {
-                  await widget.auth.signOut();
-                },
-              ),
-            ],
-          ),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.only(top: 15),
+              children: [
+                ListTile(
+                  title: Text('Dados Pessoais'),
+                  leading: Icon(Icons.person),
+                ),
+                ListTile(
+                  title: Text('Histórico'),
+                  leading: Icon(Icons.history),
+                ),
+                ListTile(
+                  title: Text('Configurações'),
+                  leading: Icon(Icons.settings),
+                ),
+                ListTile(
+                  title: Text('Sair'),
+                  leading: Icon(Icons.logout),
+                  onTap: () async {
+                    await widget.auth.signOut();
+                  },
+                ),
+              ],
+            ),
         )
       ],
     );

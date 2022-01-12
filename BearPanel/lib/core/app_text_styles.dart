@@ -61,4 +61,11 @@ class AppTextStyles {
     fontSize: 25,
     fontWeight: FontWeight.normal,
   );
+
+  static final TextStyle emptyStyle = GoogleFonts.roboto(
+    color: Color(0xFFB5ACAC),
+    fontSize: 25,
+    fontWeight: FontWeight.normal,
+  );
+
 }

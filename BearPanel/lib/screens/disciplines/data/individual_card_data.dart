@@ -1,5 +1,4 @@
-import 'package:bearpanel/screens/disciplines/draggable_list.dart';
-
+import 'draggable_list.dart';
 
 List<DraggableList> allLists = [
   DraggableList(

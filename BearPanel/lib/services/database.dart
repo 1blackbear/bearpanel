@@ -21,7 +21,7 @@ class DatabaseService {
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
       uid: uid,
-      name: snapshot.data()!['Nome'],
+      name: snapshot.get('Nome'),
     );
   }
 
