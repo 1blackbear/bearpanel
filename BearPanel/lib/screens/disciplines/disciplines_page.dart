@@ -27,7 +27,9 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
   @override
   void initState() {
     super.initState();
-    lists = widget.user.disciplines.isEmpty ? [] : AllDisciplinList.getLists(widget.user).map(buildList).toList();
+    lists = widget.user.disciplines.isEmpty ? [] :
+    AllDisciplinList.getList(widget.user).isEmpty ? [] :
+    AllDisciplinList.getLists(widget.user).map(buildList).toList();
   }
 
   @override
@@ -131,7 +133,9 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                                 widget.user.periods
                             );
                             setState(() {
-                              lists = widget.user.disciplines.isEmpty ? [] : AllDisciplinList.getLists(widget.user).map(buildList).toList();
+                              lists = widget.user.disciplines.isEmpty ? [] :
+                              AllDisciplinList.getList(widget.user).isEmpty ? [] :
+                              AllDisciplinList.getLists(widget.user).map(buildList).toList();
                             });
                         },
                       ),
