@@ -92,6 +92,9 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
           Expanded(
             child: Stack(
               children: [
+                widget.user.disciplines[widget.index]['Atividades'].length == 0 ?
+                Center(child: Text("Atividades Vazias", style: AppTextStyles.emptyStyle,))
+                    :
                 SizedBox(
                     child: ListView(
                       padding: EdgeInsets.zero,
