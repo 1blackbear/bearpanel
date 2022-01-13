@@ -2,9 +2,11 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/lesson.dart';
 import 'package:bearpanel/models/user.dart';
+import 'package:bearpanel/screens/disciplines/lesson/add_lesson_modal.dart';
 import 'package:bearpanel/screens/shared/navigator_base.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
 import 'package:bearpanel/screens/widgets/app_cards.dart';
+import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +42,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
   Widget build(BuildContext context) {
     //return Center(child: Container(child: Text(widget.user.disciplines[widget.index]['Nome']),));
     return Padding(
-      padding: const EdgeInsets.only(top: 70.0, left: 25, right: 25),
+      padding: const EdgeInsets.only(top: 65.0, left: 25, right: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -86,17 +88,76 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
           SizedBox(height: 30,),
 
           Text('Atividades', style: AppTextStyles.descForm),
+          SizedBox(height: 10,),
           Expanded(
-            child: ListView(
-              children: getAtividades().map(
-                  (item) => Container(
-                    color: AppColors.white,
-                    child: ListTile(
-                      title: Text(item.title),
-                      trailing: Icon(Icons.delete),
+            child: Stack(
+              children: [
+                SizedBox(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: getAtividades().map(
+                              (item) => Container(
+                            color: AppColors.white,
+                            child: ListTile(
+                              title: Text(item.title),
+                              subtitle: Text("Pontuação: ${item.current}/${item.total}"),
+                              trailing: GestureDetector(
+                                  child: Icon(Icons.delete),
+                                onTap: () async {
+                                  widget.user.disciplines[widget.index]['Atividades'].removeAt(getIndexList(item.title));
+                                  await DatabaseService(uid: widget.user.uid).updateUserData(
+                                      widget.user.name,
+                                      widget.user.disciplines,
+                                      widget.user.course_name,
+                                      widget.user.periods
+                                  );
+                                  /*setState(() {
+
+                                  });*/
+                                },
+                              ),
+                            ),
+                          )
+                      ).toList(),
                     ),
-                  )
-              ).toList(),
+                  ),
+                Positioned(
+                  right: 10,
+                  bottom: 20,
+                  child: SizedBox(
+                    height: 52,
+                    child: FloatingActionButton(
+                      backgroundColor: AppColors.white,
+                      tooltip: 'Adicionar Disciplina',
+                      onPressed: () {
+                        showGeneralDialog(
+                            context: context,
+                            transitionDuration: Duration(milliseconds: 200),
+                            barrierDismissible: true,
+                            barrierLabel: '',
+                            transitionBuilder: (context, a1, a2, widgetd) {
+                              return Transform.scale(
+                                scale: a1.value,
+                                child: Opacity(
+                                  opacity: a1.value,
+                                  child: ModalViewr(
+                                      child: AddLessonModal(user: widget.user, index: widget.index,)
+                                  ),
+                                ),
+                              );
+                            },
+                            pageBuilder: (context, animation1, animation2) {throw("");}
+                        );
+                      },
+                      child: Icon(
+                        Icons.add,
+                        color: AppColors.black_pattern_dark,
+                        size: 45,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -129,11 +190,27 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
               }
           ),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
 
         ],
       ),
     );
   }
+
+  int getIndexList(String current) {
+    int index = 0;
+    try {
+      widget.user.disciplines[widget.index]['Atividades'].forEach((e) {
+        print(e['Titulo'] == current);
+        if (e['Titulo'] == current)
+          throw "";
+        index++;
+      });
+    } catch (e) {
+      // leave it
+    }
+    return index;
+  }
+
 }

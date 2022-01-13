@@ -1,7 +1,7 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
-import 'package:bearpanel/screens/disciplines/disciplin_detail_page.dart';
+import 'package:bearpanel/screens/disciplines/lesson/lessons_page.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';

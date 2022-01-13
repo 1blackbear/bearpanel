@@ -53,10 +53,8 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
               SizedBox(
                 height: 30,
               ),
+
               Text('Nome', style: AppTextStyles.descForm),
-              const SizedBox(
-                height: 10,
-              ),
               CustomForm(
                 enabled: true,
                 hintText: 'Digite o nome da disciplina',
@@ -69,10 +67,8 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
               SizedBox(
                 height: 30,
               ),
+
               Text('Período', style: AppTextStyles.descForm),
-              const SizedBox(
-                height: 10,
-              ),
               Container(
                 width: double.infinity,
                 child: DropdownButton<int>(
@@ -112,8 +108,9 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                       disciplin_data['Finalizada?'] = value!;
                     });
                   }),
+
               SizedBox(
-                height: 190,
+                height: 210,
               ),
               CustomButton(title: 'Adicionar',
                   onPressed: () async {
