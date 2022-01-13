@@ -21,6 +21,6 @@ class _AuthFileState extends State<AuthFile> {
       else if (auth.user_state == null)
         return SignIn();
       else
-        return NavigatorBase(pressed: false,);
+        return NavigatorBase(spin_animation: false,);
   }
 }

@@ -1,7 +1,9 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
+import 'package:bearpanel/screens/disciplines/disciplin_detail_page.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
+import 'package:bearpanel/services/database.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'add_disciplin_modal.dart';
@@ -19,16 +21,18 @@ class DisciplinesPage extends StatefulWidget {
 
 class _DisciplinesPageState extends State<DisciplinesPage> {
   late List<DragAndDropList> lists;
+  bool pressed = false;
+  String current = '';
 
   @override
   void initState() {
     super.initState();
-    lists = AllDisciplinList.getLists(widget.user).map(buildList).toList();
+    lists = widget.user.disciplines.isEmpty ? [] : AllDisciplinList.getLists(widget.user).map(buildList).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return pressed ? DisciplinDetail(user: widget.user, index: this.getIndexList(current)) : Stack (
       children: [
         SizedBox(
           child: DragAndDropLists(
@@ -110,13 +114,51 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                   child: Container(
                     color: AppColors.white,
                     child: ListTile(
-                      trailing: Icon(Icons.delete),
+                      onTap: () {
+                        setState(() {
+                          current = item.title;
+                          pressed = true;
+                        });
+                      },
+                      trailing: GestureDetector(
+                          child: Icon(Icons.delete),
+                        onTap: () async {
+                            widget.user.disciplines.removeAt(getIndexList(item.title));
+                            await DatabaseService(uid: widget.user.uid).updateUserData(
+                                widget.user.name,
+                                widget.user.disciplines,
+                                widget.user.course_name,
+                                widget.user.periods
+                            );
+                            setState(() {
+                              lists = widget.user.disciplines.isEmpty ? [] : AllDisciplinList.getLists(widget.user).map(buildList).toList();
+                            });
+                        },
+                      ),
                       title: Text(item.title),
                     ),
                   ),
                 ))
             .toList(),
       );
+
+  void onDelete() async {
+
+  }
+
+  int getIndexList(String current) {
+    int index = 0;
+    try {
+      widget.user.disciplines.forEach((e) {
+        if (e['Nome'] == current)
+          throw "";
+        index++;
+      });
+    } catch (e) {
+      // leave it
+    }
+    return index;
+  }
 
   void onReorderListItem(
     int oldItemIndex,

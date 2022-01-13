@@ -7,8 +7,7 @@ class AllDisciplinList {
       DraggableList(
           header: 'Disciplinas Cadastradas',
           items: data.disciplines.map((disciplin) =>
-             DraggableListItem(title: disciplin.toString()),
-          ).toList()
+             DraggableListItem(title: disciplin['Nome'])).toList()
       )
     ];
   }

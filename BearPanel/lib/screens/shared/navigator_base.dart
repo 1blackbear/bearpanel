@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NavigatorBase extends StatefulWidget {
-  bool pressed;
-  NavigatorBase({Key? key, required this.pressed}) : super(key: key);
+  bool spin_animation;
+  NavigatorBase({Key? key, required this.spin_animation}) : super(key: key);
 
   @override
   _NavigatorBaseState createState() => _NavigatorBaseState();
@@ -22,7 +22,7 @@ class NavigatorBase extends StatefulWidget {
 
 class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProviderStateMixin {
 
-  final pageViewController = PageController();
+  final pageViewController = PageController(); 
   late Animation<double> _animation;
   late AnimationController _animationController;
 
@@ -31,10 +31,10 @@ class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProvide
     super.initState();
     _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 1800));
     _animation = new Tween<double>(begin: 0, end: 1).animate(new CurvedAnimation(parent: _animationController, curve: Curves.easeInOutCirc));
-    if(widget.pressed) {
+    if(widget.spin_animation) {
       _animationController.reverse();
       _animationController.forward().then((value) => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => NavigatorBase(pressed: false,))));
+          MaterialPageRoute(builder: (context) => NavigatorBase(spin_animation: false,))));
     }
   }
 
@@ -55,7 +55,7 @@ class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProvide
         UserData? userData = snapshot.data;
         if (snapshot.hasData) {
           return
-            widget.pressed ? Scaffold(
+            widget.spin_animation ? Scaffold(
               body: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

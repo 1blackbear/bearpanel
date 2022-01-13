@@ -10,10 +10,12 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('userData');
 
   //update user data
-  Future updateUserData(String name, List disciplines) async {
+  Future updateUserData(String name, List disciplines, String course_name, int periods) async {
     return await userDataCollection.doc(uid).set({
       'Nome': name,
-      'Disciplinas': disciplines
+      'Disciplinas': disciplines,
+      'Nome do curso': course_name,
+      'Qtd de periodos': periods
     });
   }
 
@@ -23,6 +25,8 @@ class DatabaseService {
       uid: uid,
       name: snapshot.get('Nome'),
       disciplines: snapshot.get('Disciplinas'),
+      course_name: snapshot.get('Nome do curso'),
+      periods: snapshot.get('Qtd de periodos'),
     );
   }
 

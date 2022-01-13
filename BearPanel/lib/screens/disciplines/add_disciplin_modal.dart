@@ -16,15 +16,19 @@ class AddDisciplinModal extends StatefulWidget {
 }
 
 class _AddDisciplinModalState extends State<AddDisciplinModal> {
-  String name = '';
-  bool finalized = false;
-  int current_period = 1;
-  int limit_period = 8;
+  Map<String, dynamic> disciplin_data = {
+    'Nome': '',//
+    'Período': 1,//
+    'Finalizada?': false, //
+    'Notal Atual': 0.0,
+    'Status': '',
+    'Atividades': [],
+  };
   late List<String> disciplines;
 
   List<int> getList() {
     List<int>? list_period = [1];
-    for (int i = 2; i <= limit_period; i++) list_period.add(i);
+    for (int i = 2; i <= widget.user.periods; i++) list_period.add(i);
     return list_period;
   }
 
@@ -57,7 +61,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                 enabled: true,
                 hintText: 'Digite o nome da disciplina',
                 onChanged: (val) {
-                  setState(() => name = val);
+                  setState(() => disciplin_data['Nome'] = val);
                 },
                 keyboardType: TextInputType.name,
                 initialValue: '',
@@ -73,7 +77,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                 width: double.infinity,
                 child: DropdownButton<int>(
                   isExpanded: true,
-                  value: current_period,
+                  value: disciplin_data['Período'],
                   icon: const Icon(Icons.arrow_drop_down_outlined),
                   underline: Container(
                     height: 1,
@@ -81,7 +85,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                   ),
                   onChanged: (int? newValue) {
                     setState(() {
-                      current_period = newValue!;
+                      disciplin_data['Período'] = newValue!;
                     });
                   },
                   items: getList().map<DropdownMenuItem<int>>((int value) {
@@ -95,15 +99,16 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
               SizedBox(
                 height: 30,
               ),
+
               CheckboxListTile(
                   title: Text('Disciplina finalizada?',
                       style: AppTextStyles.descForm),
                   activeColor: AppColors.black_pattern,
-                  value: finalized,
+                  value: disciplin_data['Finalizada?'],
                   controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (value) {
                     setState(() {
-                      finalized = value!;
+                      disciplin_data['Finalizada?'] = value!;
                     });
                   }),
               SizedBox(
@@ -111,13 +116,15 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
               ),
               CustomButton(title: 'Adicionar',
                   onPressed: () async {
-                    widget.user.disciplines.add(name);
+                    widget.user.disciplines.add(disciplin_data);
                     await DatabaseService(uid: widget.user.uid).updateUserData(
                       widget.user.name,
-                        widget.user.disciplines
+                        widget.user.disciplines,
+                      widget.user.course_name,
+                      widget.user.periods
                     );
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => NavigatorBase(pressed: true,)));
+                        MaterialPageRoute(builder: (context) => NavigatorBase(spin_animation: true,)));
                   }
                   )
             ],

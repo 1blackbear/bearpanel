@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bearpanel/models/disciplin.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/authenticate/sing_in.dart';
 import 'package:bearpanel/screens/home/home_page.dart';
@@ -59,13 +60,13 @@ class AuthService extends ChangeNotifier {
 
   //register with email and password
   Future registerWithEmailAndPassword(
-      String email, String password, String nome) async {
+      String email, String password, String nome, String course_name, int periods) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
       //create a document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData(nome, <String> []);
+      await DatabaseService(uid: user!.uid).updateUserData(nome, [], course_name, periods);
       user.sendEmailVerification();
       _getUser();
     } on FirebaseAuthException catch  (e) {
@@ -112,7 +113,7 @@ class AuthService extends ChangeNotifier {
         User? user = userCredential.user;
         if (userCredential.additionalUserInfo!.isNewUser) {
           String nome = user != null ? user.displayName.toString() : "";
-          await DatabaseService(uid: user!.uid).updateUserData(nome, <String> []);
+          await DatabaseService(uid: user!.uid).updateUserData(nome, [], '', 8);
           //User logging in for the first time
           // Redirect user to tutorial
         }
@@ -135,7 +136,7 @@ class AuthService extends ChangeNotifier {
         User? user = userCredential.user;
         if (userCredential.additionalUserInfo!.isNewUser) {
           String nome = user != null ? user.displayName.toString() : "";
-          await DatabaseService(uid: user!.uid).updateUserData(nome, <String> []);//User logging in for the first time
+          await DatabaseService(uid: user!.uid).updateUserData(nome, [], '', 8);//User logging in for the first time
           // Redirect user to tutorial
         }
         _getUser();
