@@ -1,11 +1,15 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
+import 'package:bearpanel/models/user.dart';
+import 'package:bearpanel/screens/shared/navigator_base.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
 import 'package:bearpanel/screens/widgets/app_form.dart';
+import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 
 class AddDisciplinModal extends StatefulWidget {
-  const AddDisciplinModal({Key? key}) : super(key: key);
+  UserData user;
+  AddDisciplinModal({Key? key, required this.user}) : super(key: key);
 
   @override
   _AddDisciplinModalState createState() => _AddDisciplinModalState();
@@ -16,6 +20,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
   bool finalized = false;
   int current_period = 1;
   int limit_period = 8;
+  late List<String> disciplines;
 
   List<int> getList() {
     List<int>? list_period = [1];
@@ -104,7 +109,17 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
               SizedBox(
                 height: 170,
               ),
-              CustomButton(title: 'Adicionar', onPressed: () {})
+              CustomButton(title: 'Adicionar',
+                  onPressed: () async {
+                    widget.user.disciplines.add(name);
+                    await DatabaseService(uid: widget.user.uid).updateUserData(
+                      widget.user.name,
+                        widget.user.disciplines
+                    );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => NavigatorBase(pressed: true,)));
+                  }
+                  )
             ],
           ),
         ),

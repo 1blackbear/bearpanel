@@ -1,14 +1,15 @@
-import 'draggable_list.dart';
+import 'package:bearpanel/models/user.dart';
 
-List<DraggableList> allLists = [
-  DraggableList(
-    header: 'Disciplinas Cadastradas',
-      items: [
-        DraggableListItem(title: 'Engenharia de Requisitos'),
-        DraggableListItem(title: 'Banco de Dados'),
-        DraggableListItem(title: 'Programação Modular'),
-        DraggableListItem(title: 'Filosofia'),
-
-      ]
-  )
-];
+import '../../../models/draggable_list.dart';
+class AllDisciplinList {
+  static List<DraggableList> getLists(UserData data) {
+    return [
+      DraggableList(
+          header: 'Disciplinas Cadastradas',
+          items: data.disciplines.map((disciplin) =>
+             DraggableListItem(title: disciplin.toString()),
+          ).toList()
+      )
+    ];
+  }
+}

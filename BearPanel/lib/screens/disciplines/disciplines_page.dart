@@ -1,14 +1,17 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
+import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'add_disciplin_modal.dart';
-import 'data/draggable_list.dart';
+import '../../models/draggable_list.dart';
 import 'data/individual_card_data.dart';
 
 class DisciplinesPage extends StatefulWidget {
-  const DisciplinesPage({Key? key}) : super(key: key);
+  UserData user;
+  AnimationController animationController;
+  DisciplinesPage({Key? key, required this.user, required this.animationController}) : super(key: key);
 
   @override
   _DisciplinesPageState createState() => _DisciplinesPageState();
@@ -20,7 +23,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
   @override
   void initState() {
     super.initState();
-    lists = allLists.map(buildList).toList();
+    lists = AllDisciplinList.getLists(widget.user).map(buildList).toList();
   }
 
   @override
@@ -64,7 +67,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                 context: context,
                 builder: (context) {
                   return  ModalViewr(
-                    child: AddDisciplinModal()
+                    child: AddDisciplinModal(user: widget.user)
                   );
                 },
               );
