@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppBarLoginWidget extends PreferredSize {
@@ -7,7 +8,7 @@ class AppBarLoginWidget extends PreferredSize {
     child: SizedBox(
       height: 250,
       child: Container(
-            color: const Color(0xFF707070),
+            color:  AppColors.black_pattern,
           ),
     ),
   );

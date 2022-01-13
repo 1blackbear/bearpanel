@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/services/auth.dart';
@@ -47,7 +48,7 @@ class AppBarHome extends PreferredSize {
                     onTap: () async {
                       await auth.signOut();
                     },
-                    child: Icon(Icons.logout, size: 32, color: Colors.white)
+                    child: Icon(Icons.logout, size: 32, color: AppColors.white)
                   ),
                 ),
 

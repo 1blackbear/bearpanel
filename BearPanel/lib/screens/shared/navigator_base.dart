@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/disciplines_page.dart';
 import 'package:bearpanel/screens/home/home_page.dart';
@@ -38,7 +39,7 @@ class _NavigatorBaseState extends State<NavigatorBase> {
         if (snapshot.hasData) {
           return
             Scaffold(
-                backgroundColor: Color(0xFFF5F5F5),
+                backgroundColor: AppColors.background,
                 bottomNavigationBar: AnimatedBuilder(
                   animation: pageViewController,
                     builder:(context, snapshot) { return BottomNavigator(controller: pageViewController);}

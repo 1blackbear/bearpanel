@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ShowDialog extends StatelessWidget {
@@ -20,7 +21,7 @@ class ShowDialog extends StatelessWidget {
           child: Text(
             'Voltar',
             style: TextStyle(
-              color: Color(0xFF707070),
+              color: AppColors.black_pattern,
             ),
           ),
         ),
@@ -49,7 +50,7 @@ class ShowDialogUntil extends StatelessWidget {
           child: Text(
             'Voltar',
             style: TextStyle(
-              color: Color(0xFF707070),
+              color: AppColors.black_pattern,
             ),
           ),
         ),

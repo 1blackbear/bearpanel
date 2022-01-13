@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/screens/authenticate/auth_screen.dart';
 import 'package:bearpanel/screens/authenticate/sign_up.dart';
@@ -59,9 +60,9 @@ class _SignInState extends State<SignIn> {
               setState(() => password = val);
             },
             decoration: InputDecoration(
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Color(0xFF525151),
+                  color: AppColors.black_pattern,
                   width: 2.0,
                 ),
               ),
@@ -73,13 +74,13 @@ class _SignInState extends State<SignIn> {
                 },
                 child: Icon(
                   _showPassword ? Icons.visibility : Icons.visibility_off,
-                  color: const Color(0xFF4e4e4e),
+                  color: AppColors.black_pattern_dark,
                 ),
               ),
               contentPadding: const EdgeInsets.only(top: 14.0, bottom: 8.0),
               hintText: 'Digite sua senha',
               hintStyle: TextStyle(
-                color: Colors.black.withOpacity(0.4),
+                color: AppColors.password,
                 fontSize: 14.0,
               ),
             ),
@@ -179,7 +180,7 @@ class _SignInState extends State<SignIn> {
               Container(
                 height: 1,
                 width: 85,
-                color: Color(0xFF525151),
+                color: AppColors.black_pattern_light,
               ),
             ],
           ),
@@ -196,9 +197,9 @@ class _SignInState extends State<SignIn> {
                   onTap: () {
                     _auth.signInWithFacebook();
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.facebook_rounded,
-                    color: Color(0xFF707070),
+                    color: AppColors.black_pattern,
                     size: 50,
                   )),
               const SizedBox(
@@ -213,8 +214,8 @@ class _SignInState extends State<SignIn> {
                 child: Container(
                   width: 43,
                   height: 43,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF707070),
+                  decoration: BoxDecoration(
+                    color: AppColors.black_pattern,
                     shape: BoxShape.circle,
                   ),
                   child: Row(

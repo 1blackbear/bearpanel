@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -23,7 +24,7 @@ class ChartWidget extends StatelessWidget {
       ),
       circularStrokeCap: CircularStrokeCap.butt,
       backgroundColor: Colors.transparent,
-      progressColor: Color(0xFF4e4e4e),
+      progressColor: AppColors.black_pattern,
       arcBackgroundColor: Color(0xFFA3A3A3),
     );
   }

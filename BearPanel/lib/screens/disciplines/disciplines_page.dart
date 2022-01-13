@@ -1,6 +1,9 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
+import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'add_disciplin_modal.dart';
 import 'data/draggable_list.dart';
 import 'data/individual_card_data.dart';
 
@@ -30,12 +33,12 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
               lastItemTargetHeight: 30,
             listPadding: EdgeInsets.only(top: 50, left: 16, right: 16),
             listInnerDecoration: BoxDecoration(
-              color: Color(0xFFF5F5F5),
+              color: AppColors.background,
               borderRadius: BorderRadius.circular(10),
             ),
             children: lists,
             itemDivider:
-                Divider(thickness: 10, height: 5, color: Color(0xFFF5F5F5)),
+                Divider(thickness: 10, height: 5, color: AppColors.background),
             itemDecorationWhileDragging: BoxDecoration(
               color: Colors.white,
               boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
@@ -55,10 +58,20 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
           child: FloatingActionButton(
             backgroundColor: Colors.white,
             tooltip: 'Adicionar Disciplina',
-            onPressed: () {},
-            child: const Icon(
+            onPressed: () {
+              showDialog<int>(
+                //backgroundColor: Colors.transparent,
+                context: context,
+                builder: (context) {
+                  return  ModalViewr(
+                    child: AddDisciplinModal()
+                  );
+                },
+              );
+            },
+            child: Icon(
               Icons.add,
-              color: Color(0xFF4e4e4e),
+              color: AppColors.black_pattern_dark,
               size: 45,
             ),
           ),
@@ -92,7 +105,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
         children: list.items
             .map((item) => DragAndDropItem(
                   child: Container(
-                    color: Colors.white,
+                    color: AppColors.white,
                     child: ListTile(
                       trailing: Icon(Icons.delete),
                       title: Text(item.title),

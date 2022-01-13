@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 5,
-          primary: const Color(0xFF707070),
+          primary: AppColors.black_pattern,
           padding: const EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),

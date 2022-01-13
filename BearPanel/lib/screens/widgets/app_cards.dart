@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'charts.dart';
@@ -11,7 +12,7 @@ class ScoreCardWidget extends StatelessWidget {
       height: 140,
       width: MediaQuery.of(context).size.width - 110,
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(15)),
+          color: AppColors.white, borderRadius: BorderRadius.circular(15)),
       child: Stack(
         children: [
           Positioned(top: 20, left: 0, right: 0, child: ChartWidget()),

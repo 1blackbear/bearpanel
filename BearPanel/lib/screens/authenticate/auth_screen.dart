@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/screens/widgets/app_bar_login.dart';
 import 'package:flutter/material.dart';
 
@@ -45,13 +46,13 @@ class _AuthCardState extends State<AuthCard> {
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Color(0xFF4e4e4e),
+              color: AppColors.black_pattern_dark,
               spreadRadius: 0,
               blurRadius: 55,
               offset: Offset(0, -16), // changes position of shadow
             ),
           ],
-          color: Color(0xFFF5F5F5),
+          color: AppColors.background,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(25.0),
             topRight: Radius.circular(25.0),

@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatefulWidget {
@@ -35,8 +36,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         ),
       ],
       currentIndex: widget.controller.page?.round() ?? 0,
-      selectedItemColor: Color(0xff363636),
-      unselectedItemColor: Color(0xFF4e4e4e),
+      selectedItemColor: AppColors.black_pattern_Mdark,
+      unselectedItemColor: AppColors.black_pattern_dark,
       onTap: _onItemTapped,
       showUnselectedLabels: false,
       iconSize: 28,

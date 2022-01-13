@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,18 +19,18 @@ class _CustomFormState extends State<CustomForm> {
   Widget build(BuildContext context) {
     return TextFormField(
       //form field name
-      cursorColor: const Color(0xFF707070),
+      cursorColor: AppColors.black_pattern,
       decoration: InputDecoration(
-        focusedBorder: const UnderlineInputBorder(
+        focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xFF525151),
+            color: AppColors.black_pattern,
             width: 2.0,
           ),
         ),
-        contentPadding: const EdgeInsets.only(top: 8, bottom: 8),
+        contentPadding: const EdgeInsets.only(top: 8, bottom: 8, left: 5),
         hintText: widget.hintText,
         hintStyle: TextStyle(
-          color: Colors.black.withOpacity(0.4),
+          color: AppColors.password,
           fontSize: 14.0,
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/screens/authenticate/auth_screen.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
@@ -65,13 +66,13 @@ class _SignUpState extends State<SignUp> {
                 },
                 child: Icon(
                   _showPassword ? Icons.visibility : Icons.visibility_off,
-                  color: const Color(0xFF4e4e4e),
+                  color: AppColors.black_pattern_dark,
                 ),
               ),
               contentPadding: const EdgeInsets.only(top: 14.0, bottom: 8.0),
               hintText: 'Digite sua senha',
               hintStyle: TextStyle(
-                color: Colors.black.withOpacity(0.4),
+                color: AppColors.password,
                 fontSize: 14.0,
               ),
             ),
@@ -95,13 +96,13 @@ class _SignUpState extends State<SignUp> {
                 },
                 child: Icon(
                   _showPassword ? Icons.visibility : Icons.visibility_off,
-                  color: const Color(0xFF4e4e4e),
+                  color: AppColors.black_pattern_dark,
                 ),
               ),
               contentPadding: const EdgeInsets.only(top: 14.0, bottom: 8.0),
               hintText: 'Repita sua senha',
               hintStyle: TextStyle(
-                color: Colors.black.withOpacity(0.4),
+                color: AppColors.password,
                 fontSize: 14.0,
               ),
             ),
