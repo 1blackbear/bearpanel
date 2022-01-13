@@ -10,6 +10,12 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static final TextStyle titleDetailPage = GoogleFonts.roboto(
+    color: AppColors.black_pattern_dark,
+    fontSize: 35,
+    fontWeight: FontWeight.bold,
+  );
+
   static final TextStyle descForm = GoogleFonts.roboto(
     color: AppColors.black_pattern_dark,
     fontSize: 18,

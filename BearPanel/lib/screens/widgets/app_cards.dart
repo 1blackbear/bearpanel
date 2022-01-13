@@ -32,3 +32,21 @@ class ScoreCardWidget extends StatelessWidget {
     );
   }
 }
+
+class MiniCard extends StatelessWidget {
+  String title;
+  MiniCard({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 95,
+      height: 30,
+      decoration: BoxDecoration(
+        color: AppColors.black_pattern,
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Center(child: Text(title, style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold, fontSize: 15),)),
+    );
+  }
+}

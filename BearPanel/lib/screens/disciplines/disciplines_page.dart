@@ -68,14 +68,23 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
             backgroundColor: Colors.white,
             tooltip: 'Adicionar Disciplina',
             onPressed: () {
-              showDialog<int>(
-                //backgroundColor: Colors.transparent,
+              showGeneralDialog(
                 context: context,
-                builder: (context) {
-                  return  ModalViewr(
-                    child: AddDisciplinModal(user: widget.user)
+                transitionDuration: Duration(milliseconds: 200),
+                barrierDismissible: true,
+                  barrierLabel: '',
+                transitionBuilder: (context, a1, a2, widgetd) {
+                  return Transform.scale(
+                    scale: a1.value,
+                    child: Opacity(
+                      opacity: a1.value,
+                      child: ModalViewr(
+                          child: AddDisciplinModal(user: widget.user)
+                      ),
+                    ),
                   );
                 },
+                  pageBuilder: (context, animation1, animation2) {throw("");}
               );
             },
             child: Icon(

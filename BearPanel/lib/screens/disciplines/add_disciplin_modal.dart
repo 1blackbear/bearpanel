@@ -20,8 +20,8 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
     'Nome': '',//
     'Período': 1,//
     'Finalizada?': false, //
-    'Notal Atual': 0.0,
-    'Status': '',
+    'Nota Atual': 0.0,
+    'Status': 'reprovado',
     'Atividades': [],
   };
   late List<String> disciplines;
@@ -36,7 +36,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height - 190,
+      height: MediaQuery.of(context).size.height - 170,
       color: AppColors.background,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
@@ -101,6 +101,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
               ),
 
               CheckboxListTile(
+                contentPadding: EdgeInsets.zero,
                   title: Text('Disciplina finalizada?',
                       style: AppTextStyles.descForm),
                   activeColor: AppColors.black_pattern,
@@ -112,7 +113,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                     });
                   }),
               SizedBox(
-                height: 170,
+                height: 190,
               ),
               CustomButton(title: 'Adicionar',
                   onPressed: () async {
