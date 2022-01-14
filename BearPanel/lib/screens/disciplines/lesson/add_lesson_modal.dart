@@ -106,12 +106,6 @@ class _AddLessonModalState extends State<AddLessonModal> {
                     widget.user.disciplines[widget.index]['Atividades']
                         .add(new_lesson_data);
 
-                    widget.user.disciplines[widget.index]['Nota Atual'] += new_lesson_data['Nota Atual'];
-                    widget.user.disciplines[widget.index]['Nota Total'] += new_lesson_data['Nota Total'];
-
-                    widget.user.disciplines[widget.index]['Nota Atual'] / widget.user.disciplines[widget.index]['Nota Total']  >= 0.6 ? widget.user.disciplines[widget.index]['Status'] = 'aprovado'
-                        : widget.user.disciplines[widget.index]['Status'] = 'reprovado';
-
                     await DatabaseService(uid: widget.user.uid).updateUserData(
                         widget.user.name,
                         widget.user.disciplines,
