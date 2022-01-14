@@ -106,6 +106,7 @@ class _SignInState extends State<SignIn> {
 
           //Botão Login
           CustomButton(
+            isEnabled: true,
             title: 'Login',
             onPressed: () async {
               setState(() {

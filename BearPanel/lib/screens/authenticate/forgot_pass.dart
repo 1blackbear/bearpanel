@@ -48,6 +48,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           ),
 
           CustomButton(
+            isEnabled: true,
             title: 'Enviar',
             onPressed: () async {
               await _auth.sendPasswordResetEmail(email);

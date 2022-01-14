@@ -9,4 +9,5 @@ class AppColors {
   static final Color password = Colors.black.withOpacity(0.4);
   static final Color white = Colors.white;
   static final Color empty = Color(0xFFB5ACAC);
+  static final Color disable = Color(0xFFE0D3D3);
 }

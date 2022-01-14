@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   VoidCallback onPressed;
+  bool isEnabled;
   String title;
 
-  CustomButton({Key? key, required this.title, required this.onPressed}) : super(key: key);
+  CustomButton({Key? key, required this.title, required this.onPressed, required this.isEnabled}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isEnabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
           elevation: 5,
           primary: AppColors.black_pattern,

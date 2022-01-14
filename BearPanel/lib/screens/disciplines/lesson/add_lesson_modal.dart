@@ -35,7 +35,7 @@ class _AddLessonModalState extends State<AddLessonModal> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height - 170,
+      height: 480,
       color: AppColors.background,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
@@ -89,9 +89,10 @@ class _AddLessonModalState extends State<AddLessonModal> {
                 initialValue: '',
               ),
               SizedBox(
-                height: 180,
+                height: 50,
               ),
               CustomButton(
+                isEnabled: true,
                   title: 'Adicionar',
                   onPressed: () async {
                     Map<String, dynamic> new_lesson_data = {

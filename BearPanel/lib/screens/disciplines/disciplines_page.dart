@@ -79,7 +79,9 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                     child: Opacity(
                       opacity: a1.value,
                       child: ModalViewr(
-                          child: AddDisciplinModal(user: widget.user)
+                          child: AddDisciplinModal(user: widget.user),
+                        top: 170,
+                        bottom: 130,
                       ),
                     ),
                   );

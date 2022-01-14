@@ -37,7 +37,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height - 170,
+      height: 450,
       color: AppColors.background,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
@@ -111,9 +111,10 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                   }),
 
               SizedBox(
-                height: 210,
+                height: 30,
               ),
               CustomButton(title: 'Adicionar',
+                  isEnabled: true,
                   onPressed: () async {
                     widget.user.disciplines.add(disciplin_data);
                     await DatabaseService(uid: widget.user.uid).updateUserData(

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ModalViewr extends StatelessWidget {
+  final Widget child;
+  final double top;
+  final double bottom;
+
   const ModalViewr({
     Key? key,
     required this.child,
+    required this.top,
+    required this.bottom
   }) : super(key: key);
 
-  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Container(
-      margin: const EdgeInsets.only(right: 25, left: 25, top: 50, bottom: 65),
+      margin: EdgeInsets.only(right: 25, left: 25, top: top, bottom: bottom),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: theme.cardColor,

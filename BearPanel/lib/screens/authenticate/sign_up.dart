@@ -159,6 +159,7 @@ class _SignUpState extends State<SignUp> {
                 ),
 
                 CustomButton(
+                  isEnabled: true,
                   title: 'Cadastrar',
                   onPressed: () async {
                     setState(() {

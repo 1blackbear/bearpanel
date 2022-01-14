@@ -10,6 +10,8 @@ import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 
+import 'edit_lesson_modal.dart';
+
 class DisciplinDetail extends StatefulWidget {
   UserData user;
   int index;
@@ -47,6 +49,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
     nota_atual = widget.user.disciplines[widget.index]['Nota Atual'];
     nota_total = widget.user.disciplines[widget.index]['Nota Total'];
     media = nota_atual/nota_total;
+    print(media);
     return Padding(
       padding: const EdgeInsets.only(top: 65.0, left: 25, right: 25),
       child: Column(
@@ -58,7 +61,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MiniCard(title: "${nota_atual.toStringAsFixed(2)}/${nota_total.toStringAsFixed(2)}"),
-              MiniCard(title: "${media == 0.0 || media.isNaN ? 0 : (nota_atual/nota_total).toStringAsFixed(2).substring(2)}%"),
+              MiniCard(title: "${media == 0.0 || media.isNaN ? 0 : media == 1 ? 100 : (nota_atual/nota_total).toStringAsFixed(2).substring(2)}%"),
               MiniCard(title: widget.user.disciplines[widget.index]['Status']),
             ],
           ),
@@ -108,6 +111,28 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                               (item) => Container(
                             color: AppColors.white,
                             child: ListTile(
+                              onTap: () {
+                                showGeneralDialog(
+                                    context: context,
+                                    transitionDuration: Duration(milliseconds: 200),
+                                    barrierDismissible: true,
+                                    barrierLabel: '',
+                                    transitionBuilder: (context, a1, a2, widgetd) {
+                                      return Transform.scale(
+                                        scale: a1.value,
+                                        child: Opacity(
+                                          opacity: a1.value,
+                                          child: ModalViewr(
+                                            child: EditLessonModal(user: widget.user, index: widget.index, index_lesson: getIndexList(item.title),),
+                                            top: 150,
+                                            bottom: 120,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    pageBuilder: (context, animation1, animation2) {throw("");}
+                                );
+                              },
                               title: Text(item.title),
                               subtitle: Text("Pontuação: ${item.current}/${item.total}"),
                               trailing: GestureDetector(
@@ -151,7 +176,9 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                                 child: Opacity(
                                   opacity: a1.value,
                                   child: ModalViewr(
-                                      child: AddLessonModal(user: widget.user, index: widget.index,)
+                                      child: AddLessonModal(user: widget.user, index: widget.index,),
+                                    top: 150,
+                                    bottom: 120,
                                   ),
                                 ),
                               );
@@ -187,6 +214,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
             height: 20,
           ),
           CustomButton(title: 'Salvar',
+              isEnabled: true,
               onPressed: () async {
                 //widget.user.disciplines.add(disciplin_data);
                 await DatabaseService(uid: widget.user.uid).updateUserData(
