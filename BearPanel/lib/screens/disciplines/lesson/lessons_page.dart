@@ -37,10 +37,16 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
     return list;
   }
 
+  double nota_atual = 0.0;
+  double nota_total = 0.0;
+  double media = 0.0;
+
 
   @override
   Widget build(BuildContext context) {
-    //return Center(child: Container(child: Text(widget.user.disciplines[widget.index]['Nome']),));
+    nota_atual = widget.user.disciplines[widget.index]['Nota Atual'];
+    nota_total = widget.user.disciplines[widget.index]['Nota Total'];
+    media = nota_atual/nota_total;
     return Padding(
       padding: const EdgeInsets.only(top: 65.0, left: 25, right: 25),
       child: Column(
@@ -51,8 +57,8 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MiniCard(title: "${widget.user.disciplines[widget.index]['Nota Atual']}/100"),
-              MiniCard(title: "${widget.user.disciplines[widget.index]['Nota Atual']}%"),
+              MiniCard(title: "${nota_atual.toStringAsFixed(2)}/${nota_total.toStringAsFixed(2)}"),
+              MiniCard(title: "${media == 0.0 || media.isNaN ? 0 : (nota_atual/nota_total).toStringAsFixed(2).substring(2)}%"),
               MiniCard(title: widget.user.disciplines[widget.index]['Status']),
             ],
           ),
@@ -107,6 +113,10 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                               trailing: GestureDetector(
                                   child: Icon(Icons.delete),
                                 onTap: () async {
+                                  widget.user.disciplines[widget.index]['Nota Atual'] -= widget.user.disciplines[widget.index]['Atividades'][getIndexList(item.title)]['Nota Atual'];
+                                  widget.user.disciplines[widget.index]['Nota Total'] -= widget.user.disciplines[widget.index]['Atividades'][getIndexList(item.title)]['Nota Total'];
+                                  widget.user.disciplines[widget.index]['Nota Atual'] / widget.user.disciplines[widget.index]['Nota Total']  >= 0.6 ? widget.user.disciplines[widget.index]['Status'] = 'aprovado'
+                                      : widget.user.disciplines[widget.index]['Status'] = 'reprovado';
                                   widget.user.disciplines[widget.index]['Atividades'].removeAt(getIndexList(item.title));
                                   await DatabaseService(uid: widget.user.uid).updateUserData(
                                       widget.user.name,
@@ -114,9 +124,6 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                                       widget.user.course_name,
                                       widget.user.periods
                                   );
-                                  /*setState(() {
-
-                                  });*/
                                 },
                               ),
                             ),
@@ -205,7 +212,6 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
     int index = 0;
     try {
       widget.user.disciplines[widget.index]['Atividades'].forEach((e) {
-        print(e['Titulo'] == current);
         if (e['Titulo'] == current)
           throw "";
         index++;

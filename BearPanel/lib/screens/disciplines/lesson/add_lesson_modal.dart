@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 class AddLessonModal extends StatefulWidget {
   UserData user;
   int index;
-  AddLessonModal({Key? key, required this.user, required this.index}) : super(key: key);
+  AddLessonModal({Key? key, required this.user, required this.index})
+      : super(key: key);
 
   @override
   _AddLessonModalState createState() => _AddLessonModalState();
@@ -17,10 +18,11 @@ class AddLessonModal extends StatefulWidget {
 
 class _AddLessonModalState extends State<AddLessonModal> {
   Map<String, dynamic> lesson_data = {
-    'Titulo': '',//
-    'Nota Atual': 1,//
-    'Nota Total': 1, //
+    'Titulo': '', //
+    'Nota Atual': 0.0, //
+    'Nota Total': 0.0, //
   };
+  double teste = 0.0;
   late List<String> disciplines;
 
   List<int> getList() {
@@ -50,7 +52,6 @@ class _AddLessonModalState extends State<AddLessonModal> {
               SizedBox(
                 height: 30,
               ),
-
               Text('Título', style: AppTextStyles.descForm),
               CustomForm(
                 enabled: true,
@@ -64,7 +65,6 @@ class _AddLessonModalState extends State<AddLessonModal> {
               SizedBox(
                 height: 30,
               ),
-
               Text('Nota Recebida', style: AppTextStyles.descForm),
               CustomForm(
                 enabled: true,
@@ -78,7 +78,6 @@ class _AddLessonModalState extends State<AddLessonModal> {
               SizedBox(
                 height: 30,
               ),
-
               Text('Nota total da atividade', style: AppTextStyles.descForm),
               CustomForm(
                 enabled: true,
@@ -89,23 +88,36 @@ class _AddLessonModalState extends State<AddLessonModal> {
                 keyboardType: TextInputType.number,
                 initialValue: '',
               ),
-
               SizedBox(
                 height: 180,
               ),
-
-              CustomButton(title: 'Adicionar',
+              CustomButton(
+                  title: 'Adicionar',
                   onPressed: () async {
-                    widget.user.disciplines[widget.index]['Atividades'].add(lesson_data);
+                    Map<String, dynamic> new_lesson_data = {
+                      'Titulo': lesson_data['Titulo'], //
+                      'Nota Atual':
+                          double.parse(lesson_data['Nota Atual'].toString()), //
+                      'Nota Total':
+                          double.parse(lesson_data['Nota Total'].toString()), //
+                    };
+
+                    widget.user.disciplines[widget.index]['Atividades']
+                        .add(new_lesson_data);
+
+                    widget.user.disciplines[widget.index]['Nota Atual'] += new_lesson_data['Nota Atual'];
+                    widget.user.disciplines[widget.index]['Nota Total'] += new_lesson_data['Nota Total'];
+
+                    widget.user.disciplines[widget.index]['Nota Atual'] / widget.user.disciplines[widget.index]['Nota Total']  >= 0.6 ? widget.user.disciplines[widget.index]['Status'] = 'aprovado'
+                        : widget.user.disciplines[widget.index]['Status'] = 'reprovado';
+
                     await DatabaseService(uid: widget.user.uid).updateUserData(
                         widget.user.name,
                         widget.user.disciplines,
                         widget.user.course_name,
-                        widget.user.periods
-                    );
+                        widget.user.periods);
                     Navigator.pop(context);
-                  }
-              )
+                  })
             ],
           ),
         ),

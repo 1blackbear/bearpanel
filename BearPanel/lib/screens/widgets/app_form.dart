@@ -1,5 +1,6 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class CustomForm extends StatefulWidget {
@@ -20,6 +21,9 @@ class _CustomFormState extends State<CustomForm> {
     return TextFormField(
       //form field name
       cursorColor: AppColors.black_pattern,
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(RegExp(r'[,]')),
+      ],
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(

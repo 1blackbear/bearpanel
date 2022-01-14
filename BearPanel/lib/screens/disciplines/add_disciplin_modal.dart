@@ -21,6 +21,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
     'Período': 1,//
     'Finalizada?': false, //
     'Nota Atual': 0.0,
+    'Nota Total': 0.0,
     'Status': 'reprovado',
     'Atividades': [],
   };
