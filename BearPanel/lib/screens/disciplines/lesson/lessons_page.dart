@@ -1,4 +1,5 @@
 import 'package:bearpanel/core/app_colors.dart';
+import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/lesson.dart';
 import 'package:bearpanel/core/app_data_value.dart';
@@ -15,7 +16,8 @@ import 'edit_lesson_modal.dart';
 class LessonsPage extends StatefulWidget {
   UserData user;
   dynamic discipline;
-  LessonsPage({Key? key, required this.discipline, required this.user})
+  Widget return_page;
+  LessonsPage({Key? key, required this.discipline, required this.user, required this.return_page})
       : super(key: key);
 
   @override
@@ -23,7 +25,6 @@ class LessonsPage extends StatefulWidget {
 }
 
 class _LessonsPageState extends State<LessonsPage> {
-
   List<int> getList() {
     List<int>? list_period = [1];
     for (int i = 2; i <= widget.user.periods; i++) list_period.add(i);
@@ -44,7 +45,6 @@ class _LessonsPageState extends State<LessonsPage> {
 
   List<String> actions = ['Editar', 'Voltar', 'Atualizar'];
 
-
   int getIndexList(String current) {
     int index = 0;
     try {
@@ -60,17 +60,15 @@ class _LessonsPageState extends State<LessonsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return !AppNavigator.activate_detail ? widget.return_page : Padding(
       padding: const EdgeInsets.only(top: 65.0, left: 25, right: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.discipline['Nome'],
-              style: AppTextStyles.titleDetailPage),
+          Text(widget.discipline['Nome'], style: AppTextStyles.titleDetailPage),
           SizedBox(
             height: 35,
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -86,26 +84,60 @@ class _LessonsPageState extends State<LessonsPage> {
           SizedBox(
             height: 30,
           ),
-
           Text('Ações', style: AppTextStyles.descForm),
           SizedBox(
             height: 10,
           ),
-           CarouselSlider.builder(
-              itemCount: actions.length,
-              itemBuilder: (context, index, pageViewIndex) => GestureDetector(onTap: () {
-              },child: Container(
+          CarouselSlider.builder(
+            itemCount: actions.length,
+            itemBuilder: (context, index, pageViewIndex) => GestureDetector(
+              onTap: () {
+                switch (index) {
+                  case 0:
+                    showGeneralDialog(
+                        context: context,
+                        transitionDuration: Duration(milliseconds: 200),
+                        barrierDismissible: true,
+                        barrierLabel: '',
+                        transitionBuilder: (context, a1, a2, widgetd) {
+                          return Transform.scale(
+                            scale: a1.value,
+                            child: Opacity(
+                              opacity: a1.value,
+                              child: ModalView(
+                                child: Container(),
+                                top: 150,
+                                bottom: 120,
+                              ),
+                            ),
+                          );
+                        },
+                        pageBuilder: (context, animation1, animation2) {
+                          throw ("");
+                        });
+                    break;
+                  case 1:
+                    setState(() {
+                      AppNavigator.uid = '';
+                      AppNavigator.activate_detail = false;
+                    });
+                    break;
+                  case 2:
+                    break;
+                }
+                ;
+              },
+              child: Container(
                 width: 110,
                 color: AppColors.white,
                 child: Center(child: Text(actions[index])),
-              ),),
-              options: CarouselOptions(height: 35, viewportFraction: 0.35),
+              ),
             ),
-
+            options: CarouselOptions(height: 35, viewportFraction: 0.35),
+          ),
           SizedBox(
             height: 30,
           ),
-
           Text('Atividades', style: AppTextStyles.descForm),
           SizedBox(
             height: 10,
@@ -149,7 +181,8 @@ class _LessonsPageState extends State<LessonsPage> {
                                                       child: ModalView(
                                                         child: EditLessonModal(
                                                           user: widget.user,
-                                                          discipline: widget.discipline,
+                                                          discipline:
+                                                              widget.discipline,
                                                           index_lesson:
                                                               getIndexList(
                                                                   item.title),
@@ -171,13 +204,14 @@ class _LessonsPageState extends State<LessonsPage> {
                                           trailing: GestureDetector(
                                             child: Icon(Icons.delete),
                                             onTap: () async {
-                                              AppGetValue.getMedia(widget.discipline) >= 0.6
-                                                  ? widget.discipline
-                                                      ['Status'] = 'aprovado'
-                                                  : widget.discipline
-                                                      ['Status'] = 'reprovado';
-                                              widget.discipline
-                                                      ['Atividades']
+                                              AppGetValue.getMedia(
+                                                          widget.discipline) >=
+                                                      0.6
+                                                  ? widget.discipline[
+                                                      'Status'] = 'aprovado'
+                                                  : widget.discipline[
+                                                      'Status'] = 'reprovado';
+                                              widget.discipline['Atividades']
                                                   .removeAt(
                                                       getIndexList(item.title));
                                               await DatabaseService(
@@ -247,7 +281,6 @@ class _LessonsPageState extends State<LessonsPage> {
             height: 1,
             color: AppColors.black_pattern,
           ),
-
           SizedBox(
             height: 30,
           ),

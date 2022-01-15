@@ -33,7 +33,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppNavigator.activate_detail ? LessonsPage(discipline: widget.user.disciplines[this.getIndexList(AppNavigator.uid)], user: widget.user,) : Stack (
+    return AppNavigator.activate_detail ? LessonsPage(discipline: widget.user.disciplines[this.getIndexList(AppNavigator.uid)], user: widget.user, return_page: widget,) : Stack (
       children: [
         SizedBox(
           child: DragAndDropLists(
