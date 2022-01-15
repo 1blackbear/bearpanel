@@ -12,6 +12,8 @@ import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'app_navigator.dart';
+
 class NavigatorBase extends StatefulWidget {
   bool spin_animation;
   NavigatorBase({Key? key, required this.spin_animation}) : super(key: key);
@@ -22,7 +24,6 @@ class NavigatorBase extends StatefulWidget {
 
 class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProviderStateMixin {
 
-  final pageViewController = PageController(); 
   late Animation<double> _animation;
   late AnimationController _animationController;
 
@@ -42,7 +43,7 @@ class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProvide
   void dispose() {
     super.dispose();
     _animationController.dispose();
-    pageViewController.dispose();
+    AppNavigator.pageViewController.dispose();
   }
 
   @override
@@ -80,16 +81,16 @@ class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProvide
             ) : Scaffold(
                 backgroundColor: AppColors.background,
                 bottomNavigationBar: AnimatedBuilder(
-                  animation: pageViewController,
-                    builder:(context, snapshot) { return BottomNavigator(controller: pageViewController);}
+                  animation: AppNavigator.pageViewController,
+                    builder:(context, snapshot) { return BottomNavigator(controller: AppNavigator.pageViewController);}
                 ),
                 body: PageView(
-                  controller: pageViewController,
+                  controller: AppNavigator.pageViewController,
                   children: [
-                    HomePage(data: userData!, auth: auth,),
-                    DisciplinesPage(user: userData, animationController: _animationController,),
+                    HomePage(data: userData!, auth: auth),
+                    DisciplinesPage(user: userData),
                     StatisticPage(),
-                    ProfilePage(auth: auth,)
+                    ProfilePage(auth: auth,),
                   ],
                 )
             );

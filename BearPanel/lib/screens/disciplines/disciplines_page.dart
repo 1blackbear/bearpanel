@@ -2,6 +2,7 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/lesson/lessons_page.dart';
+import 'package:bearpanel/screens/shared/app_navigator.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
@@ -12,8 +13,7 @@ import 'data/individual_card_data.dart';
 
 class DisciplinesPage extends StatefulWidget {
   UserData user;
-  AnimationController animationController;
-  DisciplinesPage({Key? key, required this.user, required this.animationController}) : super(key: key);
+  DisciplinesPage({Key? key, required this.user}) : super(key: key);
 
   @override
   _DisciplinesPageState createState() => _DisciplinesPageState();
@@ -21,8 +21,6 @@ class DisciplinesPage extends StatefulWidget {
 
 class _DisciplinesPageState extends State<DisciplinesPage> {
   late List<DragAndDropList> lists;
-  bool pressed = false;
-  String current = '';
 
   @override
   void initState() {
@@ -34,7 +32,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return pressed ? DisciplinDetail(user: widget.user, index: this.getIndexList(current)) : Stack (
+    return AppNavigator.pressed ? LessonsPage(disciplin: widget.user.disciplines[this.getIndexList(AppNavigator.current)], user: widget.user,) : Stack (
       children: [
         SizedBox(
           child: DragAndDropLists(
@@ -129,8 +127,8 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                     child: ListTile(
                       onTap: () {
                         setState(() {
-                          current = item.title;
-                          pressed = true;
+                          AppNavigator.current = item.title;
+                          AppNavigator.pressed = true;
                         });
                       },
                       trailing: GestureDetector(
@@ -156,10 +154,6 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                 ))
             .toList(),
       );
-
-  void onDelete() async {
-
-  }
 
   int getIndexList(String current) {
     int index = 0;

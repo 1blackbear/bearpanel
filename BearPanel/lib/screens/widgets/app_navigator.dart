@@ -1,4 +1,5 @@
 import 'package:bearpanel/core/app_colors.dart';
+import 'package:bearpanel/screens/shared/app_navigator.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatefulWidget {
@@ -11,6 +12,12 @@ class BottomNavigator extends StatefulWidget {
 
 class _BottomNavigatorState extends State<BottomNavigator> {
   void _onItemTapped(int index) {
+    if (index == 1) {
+      setState(() {
+        AppNavigator.pressed = false;
+        AppNavigator.current = '';
+      });
+    }
     widget.controller.jumpToPage(index);
   }
 

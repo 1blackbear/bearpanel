@@ -1,6 +1,7 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/lesson.dart';
+import 'package:bearpanel/core/app_data_value.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/lesson/add_lesson_modal.dart';
 import 'package:bearpanel/screens/shared/navigator_base.dart';
@@ -12,27 +13,29 @@ import 'package:flutter/material.dart';
 import 'edit_lesson_modal.dart';
 
 //ignore: must_be_immutable
-class DisciplinDetail extends StatefulWidget {
-  UserData? user;
-  int index;
-  DisciplinDetail({Key? key, required this.user, required this.index})
+class LessonsPage extends StatefulWidget {
+  UserData user;
+  dynamic disciplin;
+  LessonsPage({Key? key, required this.disciplin, required this.user})
       : super(key: key);
 
   @override
-  _DisciplinDetailState createState() => _DisciplinDetailState();
+  _LessonsPageState createState() => _LessonsPageState();
 }
 
-class _DisciplinDetailState extends State<DisciplinDetail> {
+class _LessonsPageState extends State<LessonsPage> {
+
   List<int> getList() {
     List<int>? list_period = [1];
-    for (int i = 2; i <= widget.user!.periods; i++) list_period.add(i);
+    for (int i = 2; i <= widget.user.periods; i++) list_period.add(i);
+    for (int i = 2; i <= widget.user.periods; i++) list_period.add(i);
     return list_period;
   }
 
   List<Lesson>? getAtividades() {
     List<Lesson> list = [];
     Lesson les;
-    widget.user!.disciplines[widget.index]['Atividades'].forEach((e) {
+    widget.disciplin['Atividades'].forEach((e) {
       les = new Lesson(
           title: e['Titulo'], current: e['Nota Atual'], total: e['Nota Total']);
       list.add(les);
@@ -41,27 +44,10 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
   }
 
 
-  double getTotal(){
-    double total = 0.0;
-    for(int i = 0; i < widget.user!.disciplines[widget.index]['Atividades'].length;i++)
-      total += widget.user!.disciplines[widget.index]['Atividades'][i]['Nota Total'];
-    return total;
-  }
-
-  double getAtual(){
-    double atual = 0.0;
-    for(int i = 0; i < widget.user!.disciplines[widget.index]['Atividades'].length;i++)
-      atual += widget.user!.disciplines[widget.index]['Atividades'][i]['Nota Atual'];
-
-    return atual;
-  }
-
   double getMedia() {
-    double media = 0.0;
-    media = getAtual() / getTotal();
-    media >= 0.6 ? widget.user!.disciplines[widget.index]['Status'] = 'aprovado'
-        : widget.user!.disciplines[widget.index]['Status'] = 'reprovado';
-    return media;
+    AppGetValue.getMedia(widget.disciplin) >= 0.6 ? widget.disciplin['Status'] = 'aprovado'
+        : widget.disciplin['Status'] = 'reprovado';
+    return AppGetValue.getMedia(widget.disciplin);
   }
 
   @override
@@ -71,7 +57,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.user!.disciplines[widget.index]['Nome'],
+          Text(widget.disciplin['Nome'],
               style: AppTextStyles.titleDetailPage),
           SizedBox(
             height: 35,
@@ -81,11 +67,11 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
             children: [
               MiniCard(
                   title:
-                      "${getAtual() == 100 ? 100 : getAtual().toStringAsFixed(2)}/${getTotal() == 100 ? 100 : getTotal().toStringAsFixed(2)}"),
+                      "${AppGetValue.getAtual(widget.disciplin) == 100 ? 100 : AppGetValue.getAtual(widget.disciplin).toStringAsFixed(2)}/${AppGetValue.getTotal(widget.disciplin) == 100 ? 100 : AppGetValue.getTotal(widget.disciplin).toStringAsFixed(2)}"),
               MiniCard(
                   title:
-                      "${getMedia() == 0.0 || getMedia().isNaN ? 0 : getMedia() == 1 ? 100 : (getAtual() / getTotal()).toStringAsFixed(2).substring(2)}%"),
-              MiniCard(title: widget.user!.disciplines[widget.index]['Status']),
+                      "${getMedia() == 0.0 || getMedia().isNaN ? 0 : getMedia() == 1 ? 100 : AppGetValue.getMedia(widget.disciplin).toStringAsFixed(2).substring(2)}%"),
+              MiniCard(title: widget.disciplin['Status']),
             ],
           ),
           SizedBox(
@@ -99,7 +85,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
             width: double.infinity,
             child: DropdownButton<int>(
               isExpanded: true,
-              value: widget.user!.disciplines[widget.index]['Período'],
+              value: widget.disciplin['Período'],
               icon: const Icon(Icons.arrow_drop_down_outlined),
               underline: Container(
                 height: 1,
@@ -107,7 +93,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
               ),
               onChanged: (int? newValue) {
                 setState(() {
-                  widget.user!.disciplines[widget.index]['Período'] = newValue!;
+                  widget.disciplin['Período'] = newValue!;
                 });
               },
               items: getList().map<DropdownMenuItem<int>>((int value) {
@@ -128,7 +114,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
           Expanded(
             child: Stack(
               children: [
-                widget.user!.disciplines[widget.index]['Atividades'].length == 0
+                widget.disciplin['Atividades'].length == 0
                     ? Center(
                         child: Text(
                         "Atividades Vazias",
@@ -157,7 +143,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                                                       child: ModalViewr(
                                                         child: EditLessonModal(
                                                           user: widget.user,
-                                                          index: widget.index,
+                                                          disciplin: widget.disciplin,
                                                           index_lesson:
                                                               getIndexList(
                                                                   item.title),
@@ -180,25 +166,21 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                                             child: Icon(Icons.delete),
                                             onTap: () async {
                                               getMedia() >= 0.6
-                                                  ? widget.user!.disciplines[
-                                                          widget.index]
+                                                  ? widget.disciplin
                                                       ['Status'] = 'aprovado'
-                                                  : widget.user!
-                                                          .disciplines[widget.index]
+                                                  : widget.disciplin
                                                       ['Status'] = 'reprovado';
-                                              widget
-                                                  .user!
-                                                  .disciplines[widget.index]
+                                              widget.disciplin
                                                       ['Atividades']
                                                   .removeAt(
                                                       getIndexList(item.title));
                                               await DatabaseService(
-                                                      uid: widget.user!.uid)
+                                                      uid: widget.user.uid)
                                                   .updateUserData(
-                                                      widget.user!.name,
-                                                      widget.user!.disciplines,
-                                                      widget.user!.course_name,
-                                                      widget.user!.periods);
+                                                      widget.user.name,
+                                                      widget.user.disciplines,
+                                                      widget.user.course_name,
+                                                      widget.user.periods);
                                             },
                                           ),
                                         ),
@@ -228,8 +210,8 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
                                   opacity: a1.value,
                                   child: ModalViewr(
                                     child: AddLessonModal(
-                                      user: widget.user!,
-                                      index: widget.index,
+                                      user: widget.user,
+                                      disciplin: widget.disciplin,
                                     ),
                                     top: 150,
                                     bottom: 120,
@@ -257,11 +239,11 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
               title:
                   Text('Disciplina finalizada?', style: AppTextStyles.descForm),
               activeColor: AppColors.black_pattern,
-              value: widget.user!.disciplines[widget.index]['Finalizada?'],
+              value: widget.disciplin['Finalizada?'],
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (value) {
                 setState(() {
-                  widget.user!.disciplines[widget.index]['Finalizada?'] =
+                  widget.disciplin['Finalizada?'] =
                       value!;
                 });
               }),
@@ -272,12 +254,11 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
               title: 'Salvar',
               isEnabled: true,
               onPressed: () async {
-                //widget.user.disciplines.add(disciplin_data);
-                await DatabaseService(uid: widget.user!.uid).updateUserData(
-                    widget.user!.name,
-                    widget.user!.disciplines,
-                    widget.user!.course_name,
-                    widget.user!.periods);
+                await DatabaseService(uid: widget.user.uid).updateUserData(
+                    widget.user.name,
+                    widget.user.disciplines,
+                    widget.user.course_name,
+                    widget.user.periods);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -296,7 +277,7 @@ class _DisciplinDetailState extends State<DisciplinDetail> {
   int getIndexList(String current) {
     int index = 0;
     try {
-      widget.user!.disciplines[widget.index]['Atividades'].forEach((e) {
+      widget.disciplin['Atividades'].forEach((e) {
         if (e['Titulo'] == current) throw "";
         index++;
       });

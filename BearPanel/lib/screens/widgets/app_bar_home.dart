@@ -1,4 +1,5 @@
 import 'package:bearpanel/core/app_colors.dart';
+import 'package:bearpanel/core/app_date.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/services/auth.dart';
@@ -8,6 +9,7 @@ import 'app_cards.dart';
 class AppBarHome extends PreferredSize {
   final UserData? user;
   final AuthService auth;
+
 
   AppBarHome({required this.user, required this.auth})
       : super(
@@ -32,7 +34,7 @@ class AppBarHome extends PreferredSize {
                   left: 0,
                   top: 65,
                   child: Text.rich(TextSpan(
-                      text: 'Boa tarde, ',
+                      text: '${CurrentDateTime.getHour()}, ',
                       style: AppTextStyles.timeStyle,
                       children: [
                         TextSpan(
@@ -55,7 +57,7 @@ class AppBarHome extends PreferredSize {
               ],
             ),
           ),
-          Align(alignment: Alignment(0, 2), child: ScoreCardWidget()),
+          Align(alignment: Alignment(0, 2), child: ScoreCardWidget(user: user,)),
         ],
       ),
     ),

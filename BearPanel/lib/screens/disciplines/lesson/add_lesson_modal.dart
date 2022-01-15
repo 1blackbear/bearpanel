@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 
 class AddLessonModal extends StatefulWidget {
   UserData user;
-  int index;
-  AddLessonModal({Key? key, required this.user, required this.index})
+  dynamic disciplin;
+  AddLessonModal({Key? key, required this.user, required this.disciplin})
       : super(key: key);
 
   @override
@@ -103,7 +103,7 @@ class _AddLessonModalState extends State<AddLessonModal> {
                           double.parse(lesson_data['Nota Total'].toString()), //
                     };
 
-                    widget.user.disciplines[widget.index]['Atividades']
+                    widget.disciplin['Atividades']
                         .add(new_lesson_data);
 
                     await DatabaseService(uid: widget.user.uid).updateUserData(

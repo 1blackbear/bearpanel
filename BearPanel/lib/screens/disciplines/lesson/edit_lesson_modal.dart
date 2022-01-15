@@ -9,12 +9,12 @@ import 'package:flutter/services.dart';
 
 class EditLessonModal extends StatefulWidget {
   UserData? user;
-  int index;
+  dynamic disciplin;
   int index_lesson;
   EditLessonModal({
     Key? key,
     required this.user,
-    required this.index,
+    required this.disciplin,
     required this.index_lesson,
   }) : super(key: key);
 
@@ -59,11 +59,11 @@ class _EditLessonModalState extends State<EditLessonModal> {
               //Título da Atividade
               Text('Título', style: AppTextStyles.descForm),
               TextFormField(
-                initialValue: widget.user!.disciplines[widget.index]
+                initialValue: widget.disciplin
                     ['Atividades'][widget.index_lesson]['Titulo'],
                 validator: (val) => val!.isEmpty ? '' : null,
                 onChanged: (val) {
-                  setState(() => widget.user!.disciplines[widget.index]
+                  setState(() => widget.disciplin
                       ['Atividades'][widget.index_lesson]['Titulo'] = val);
                 },
                 readOnly: !_edit_title,
@@ -107,19 +107,17 @@ class _EditLessonModalState extends State<EditLessonModal> {
                 inputFormatters: [
                   FilteringTextInputFormatter.deny(RegExp(r'[,]')),
                 ],
-                initialValue: widget
-                    .user!
-                    .disciplines[widget.index]['Atividades']
+                initialValue: widget.disciplin['Atividades']
                         [widget.index_lesson]['Nota Atual']
                     .toString(),
                 validator: (val) => val!.isEmpty ? '' : null,
                 onChanged: (val) {
                   setState(() {
                     if (val == "") {
-                      widget.user!.disciplines[widget.index]['Atividades']
+                      widget.disciplin['Atividades']
                       [widget.index_lesson]['Nota Atual'] = 0.0;
                     } else {
-                      widget.user!.disciplines[widget.index]['Atividades']
+                      widget.disciplin['Atividades']
                       [widget.index_lesson]['Nota Atual'] = double.parse(val);
                     }
                   });
@@ -165,19 +163,17 @@ class _EditLessonModalState extends State<EditLessonModal> {
                 inputFormatters: [
                   FilteringTextInputFormatter.deny(RegExp(r'[,]')),
                 ],
-                initialValue: widget
-                    .user!
-                    .disciplines[widget.index]['Atividades']
+                initialValue: widget.disciplin['Atividades']
                         [widget.index_lesson]['Nota Total']
                     .toString(),
                 validator: (val) => val!.isEmpty ? '' : null,
                 onChanged: (val) {
                   setState(() {
                     if (val == "") {
-                      widget.user!.disciplines[widget.index]['Atividades']
+                      widget.disciplin['Atividades']
                       [widget.index_lesson]['Nota Total'] = 0.0;
                     } else {
-                      widget.user!.disciplines[widget.index]['Atividades']
+                      widget.disciplin['Atividades']
                       [widget.index_lesson]['Nota Total'] = double.parse(val);
                     }
                   });
