@@ -1,3 +1,4 @@
+import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
@@ -7,6 +8,7 @@ import 'package:bearpanel/services/auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 //ignore: must_be_immutable
 class HomePage extends StatefulWidget {
@@ -54,6 +56,14 @@ class _HomePageState extends State<HomePage> {
         height: 120,
         child: Center(child: Text("Nenhuma disciplina cadastrada",style: AppTextStyles.emptyStyle, textAlign: TextAlign.center,)),
       ),
+      SizedBox(height: 50),
+      Container(
+        color: AppColors.white,
+        height: 150,
+        child: SfCartesianChart(
+          borderColor: AppColors.black_pattern,
+        ),
+      )
     ]
     );
   }

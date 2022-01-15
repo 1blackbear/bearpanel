@@ -3,7 +3,6 @@ import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/screens/authenticate/auth_screen.dart';
 import 'package:bearpanel/screens/authenticate/sign_up.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
-import 'package:bearpanel/screens/widgets/app_dialog.dart';
 import 'package:bearpanel/screens/widgets/app_form.dart';
 import 'package:bearpanel/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -123,7 +122,7 @@ class _SignInState extends State<SignIn> {
                 case 2:
                   loading = false;
                   _auth.signOut();
-                  showDialog(
+                  /*showDialog(
                       barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) {
@@ -132,7 +131,7 @@ class _SignInState extends State<SignIn> {
                           desc_msg:
                               'Por favor, verifique o seu email para continuar.',
                         );
-                      });
+                      });*/
                   break;
                 default:
                   loading = true;

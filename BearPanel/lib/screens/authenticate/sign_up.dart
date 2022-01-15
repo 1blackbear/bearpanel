@@ -7,6 +7,7 @@ import 'package:bearpanel/screens/widgets/app_form.dart';
 import 'package:bearpanel/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   String email = "", name = "", password = "", error = '', course = '';
   bool _showPassword = false, loading = false;
-  int _periods = 0;
+  String _periods = "";
   final AuthService _auth = AuthService();
   final auth = FirebaseAuth.instance;
 
@@ -61,6 +62,12 @@ class _SignUpState extends State<SignUp> {
                     setState(() => password = val);
                   },
                   decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.black_pattern,
+                        width: 2.0,
+                      ),
+                    ),
                     suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -91,6 +98,12 @@ class _SignUpState extends State<SignUp> {
                     setState(() => password = val);
                   },
                   decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.black_pattern,
+                        width: 2.0,
+                      ),
+                    ),
                     suffixIcon: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -144,11 +157,27 @@ class _SignUpState extends State<SignUp> {
                 ),
 
                 Text('Períodos', style: AppTextStyles.descForm),
-                CustomForm(
+                TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  ],
                   enabled: true,
-                  hintText: 'Digite a quantidade de periodos',
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.black_pattern,
+                        width: 2.0,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.only(top: 8, bottom: 8, left: 5),
+                    hintText:'Digite a quantidade de periodos',
+                    hintStyle: TextStyle(
+                      color: AppColors.password,
+                      fontSize: 14.0,
+                    ),
+                  ),
                   onChanged: (val) {
-                    setState(() => _periods = val as int);
+                    setState(() => _periods = val);
                   },
                   keyboardType: TextInputType.number,
                   initialValue: '',
@@ -165,7 +194,7 @@ class _SignUpState extends State<SignUp> {
                       loading = true;
                     });
                     dynamic result = await _auth.registerWithEmailAndPassword(
-                        email, password, name, course, _periods);
+                        email, password, name, course, int.parse(_periods));
                     await _auth.signOut();
                     switch (result) {
                       case 1:
@@ -173,7 +202,7 @@ class _SignUpState extends State<SignUp> {
                         setState(() => error = 'Email em uso. Tente novamente');
                         break;
                       default:
-                        showDialog(
+                        /*showDialog(
                             barrierDismissible: false,
                             context: context,
                             builder: (BuildContext context) {
@@ -182,7 +211,7 @@ class _SignUpState extends State<SignUp> {
                                 desc_msg:
                                 'Um email para verificar sua senha foi enviado para $email.',
                               );
-                            });
+                            });*/
                         break;
                     }
                   },

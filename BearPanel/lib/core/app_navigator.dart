@@ -40,8 +40,8 @@ class _NavigatorBaseState extends State<NavigatorBase>  with SingleTickerProvide
     _animation = new Tween<double>(begin: 0, end: 1).animate(new CurvedAnimation(parent: _animationController, curve: Curves.easeInOutCirc));
     if(widget.spin_animation) {
       _animationController.reverse();
-      _animationController.forward().then((value) => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => NavigatorBase(spin_animation: false,))));
+      _animationController.forward().then((value) => Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) => NavigatorBase(spin_animation: false,)),(route) => false));
     }
   }
 

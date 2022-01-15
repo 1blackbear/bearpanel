@@ -7,6 +7,7 @@ import 'package:bearpanel/screens/disciplines/lesson/add_lesson_modal.dart';
 import 'package:bearpanel/screens/widgets/app_cards.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:bearpanel/services/database.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'edit_lesson_modal.dart';
 
@@ -40,6 +41,8 @@ class _LessonsPageState extends State<LessonsPage> {
     });
     return list;
   }
+
+  List<String> actions = ['Editar', 'Voltar', 'Atualizar'];
 
 
   int getIndexList(String current) {
@@ -84,9 +87,35 @@ class _LessonsPageState extends State<LessonsPage> {
             height: 30,
           ),
 
+          Text('Ações', style: AppTextStyles.descForm),
+          SizedBox(
+            height: 10,
+          ),
+           CarouselSlider.builder(
+              itemCount: actions.length,
+              itemBuilder: (context, index, pageViewIndex) => GestureDetector(onTap: () {
+              },child: Container(
+                width: 110,
+                color: AppColors.white,
+                child: Center(child: Text(actions[index])),
+              ),),
+              options: CarouselOptions(height: 35, viewportFraction: 0.35),
+            ),
+
+          SizedBox(
+            height: 30,
+          ),
+
           Text('Atividades', style: AppTextStyles.descForm),
           SizedBox(
             height: 10,
+          ),
+          Divider(
+            height: 1,
+            color: AppColors.black_pattern,
+          ),
+          SizedBox(
+            height: 5,
           ),
           Expanded(
             child: Stack(
@@ -211,9 +240,16 @@ class _LessonsPageState extends State<LessonsPage> {
               ],
             ),
           ),
+          SizedBox(
+            height: 5,
+          ),
+          Divider(
+            height: 1,
+            color: AppColors.black_pattern,
+          ),
 
           SizedBox(
-            height: 150,
+            height: 30,
           ),
         ],
       ),
