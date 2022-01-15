@@ -1,7 +1,7 @@
 import 'package:bearpanel/core/app_colors.dart';
+import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
-import 'package:bearpanel/screens/shared/navigator_base.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
 import 'package:bearpanel/screens/widgets/app_form.dart';
 import 'package:bearpanel/services/database.dart';

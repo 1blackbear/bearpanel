@@ -57,9 +57,10 @@ class MiniCard extends StatelessWidget {
   }
 }
 
+//ignore: must_be_immutable
 class InitialCard extends StatelessWidget {
-  dynamic disciplin;
-  InitialCard({Key? key, required this.disciplin}) : super(key: key);
+  dynamic discipline;
+  InitialCard({Key? key, required this.discipline}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +76,15 @@ class InitialCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(disciplin['Nome'], style: AppTextStyles.descForm,),
+            Text(discipline['Nome'], style: AppTextStyles.descForm,),
             SizedBox(height: 10),
-            Text("Nota atual: ${AppGetValue.getAtual(disciplin) == 100 ? 100 : AppGetValue.getAtual(disciplin).toStringAsFixed(1)}/${AppGetValue.getTotal(disciplin) == 100 ? 100 : AppGetValue.getTotal(disciplin).toStringAsFixed(1)}"
+            Text("Nota atual: ${AppGetValue.getAtual(discipline) == 100 ? 100 : AppGetValue.getAtual(discipline).toStringAsFixed(1)}/${AppGetValue.getTotal(discipline) == 100 ? 100 : AppGetValue.getTotal(discipline).toStringAsFixed(1)}"
             ,style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12),),
             SizedBox(height: 5),
-            Text("Média: ${AppGetValue.getMedia(disciplin) == 0.0 || AppGetValue.getMedia(disciplin).isNaN ? 0 : AppGetValue.getMedia(disciplin) == 1 ? 100 : AppGetValue.getMedia(disciplin).toStringAsFixed(2).substring(2)}%",
+            Text("Média: ${AppGetValue.getMedia(discipline) == 0.0 || AppGetValue.getMedia(discipline).isNaN ? 0 : AppGetValue.getMedia(discipline) == 1 ? 100 : AppGetValue.getMedia(discipline).toStringAsFixed(2).substring(2)}%",
                 style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12)),
             SizedBox(height: 5),
-            Text("Status: ${disciplin['Status']}", style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12)),
+            Text("Status: ${discipline['Status']}", style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12)),
           ],
         ),
       ),

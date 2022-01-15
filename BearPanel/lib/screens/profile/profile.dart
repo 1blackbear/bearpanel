@@ -2,6 +2,7 @@ import 'package:bearpanel/screens/widgets/app_bar_login.dart';
 import 'package:bearpanel/services/auth.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class ProfilePage extends StatefulWidget {
   AuthService auth;
   ProfilePage({Key? key, required this.auth}) : super(key: key);

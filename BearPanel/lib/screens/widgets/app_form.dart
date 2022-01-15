@@ -2,7 +2,7 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
+//ignore: must_be_immutable
 class CustomForm extends StatefulWidget {
   Function(String) onChanged;
   TextInputType  keyboardType;

@@ -1,8 +1,7 @@
 import 'package:bearpanel/models/user.dart';
-
 import '../../../models/draggable_list.dart';
-class AllDisciplinList {
 
+class AllDisciplinesList {
   static List<DraggableList> getLists(UserData data) {
     return [
       DraggableList(

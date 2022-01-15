@@ -2,6 +2,8 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/screens/widgets/app_bar_login.dart';
 import 'package:flutter/material.dart';
 
+//Tela de Autenticação
+//ignore: must_be_immutable
 class AuthScreen extends StatefulWidget {
   List<Widget> widgets;
   AuthScreen({Key? key, required this.widgets}) : super(key: key);
@@ -9,7 +11,6 @@ class AuthScreen extends StatefulWidget {
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
-
 class _AuthScreenState extends State<AuthScreen> {
 
   @override
@@ -30,6 +31,8 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 }
 
+//Card da página de login
+//ignore: must_be_immutable
 class AuthCard extends StatefulWidget {
   List<Widget> widgets;
   AuthCard({Key? key, required this.widgets}) : super(key: key);
@@ -37,7 +40,6 @@ class AuthCard extends StatefulWidget {
   @override
   _AuthCardState createState() => _AuthCardState();
 }
-
 class _AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {

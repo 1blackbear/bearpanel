@@ -1,8 +1,8 @@
 import 'package:bearpanel/core/app_colors.dart';
+import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/lesson/lessons_page.dart';
-import 'package:bearpanel/screens/shared/app_navigator.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
@@ -11,6 +11,7 @@ import 'add_disciplin_modal.dart';
 import '../../models/draggable_list.dart';
 import 'data/individual_card_data.dart';
 
+//ignore: must_be_immutable
 class DisciplinesPage extends StatefulWidget {
   UserData user;
   DisciplinesPage({Key? key, required this.user}) : super(key: key);
@@ -26,13 +27,13 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
   void initState() {
     super.initState();
     lists = widget.user.disciplines.isEmpty ? [] :
-    AllDisciplinList.getList(widget.user).isEmpty ? [] :
-    AllDisciplinList.getLists(widget.user).map(buildList).toList();
+    AllDisciplinesList.getList(widget.user).isEmpty ? [] :
+    AllDisciplinesList.getLists(widget.user).map(buildList).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppNavigator.pressed ? LessonsPage(disciplin: widget.user.disciplines[this.getIndexList(AppNavigator.current)], user: widget.user,) : Stack (
+    return AppNavigator.activate_detail ? LessonsPage(discipline: widget.user.disciplines[this.getIndexList(AppNavigator.uid)], user: widget.user,) : Stack (
       children: [
         SizedBox(
           child: DragAndDropLists(
@@ -76,7 +77,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                     scale: a1.value,
                     child: Opacity(
                       opacity: a1.value,
-                      child: ModalViewr(
+                      child: ModalView(
                           child: AddDisciplinModal(user: widget.user),
                         top: 170,
                         bottom: 130,
@@ -127,8 +128,8 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                     child: ListTile(
                       onTap: () {
                         setState(() {
-                          AppNavigator.current = item.title;
-                          AppNavigator.pressed = true;
+                          AppNavigator.uid = item.title;
+                          AppNavigator.activate_detail = true;
                         });
                       },
                       trailing: GestureDetector(
@@ -143,8 +144,8 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
                             );
                             setState(() {
                               lists = widget.user.disciplines.isEmpty ? [] :
-                              AllDisciplinList.getList(widget.user).isEmpty ? [] :
-                              AllDisciplinList.getLists(widget.user).map(buildList).toList();
+                              AllDisciplinesList.getList(widget.user).isEmpty ? [] :
+                              AllDisciplinesList.getLists(widget.user).map(buildList).toList();
                             });
                         },
                       ),

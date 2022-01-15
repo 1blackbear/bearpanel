@@ -19,7 +19,6 @@ class _SignUpState extends State<SignUp> {
   int _periods = 0;
   final AuthService _auth = AuthService();
   final auth = FirebaseAuth.instance;
-  //final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

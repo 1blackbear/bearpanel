@@ -10,7 +10,6 @@ class AppBarHome extends PreferredSize {
   final UserData? user;
   final AuthService auth;
 
-
   AppBarHome({required this.user, required this.auth})
       : super(
     preferredSize: Size.fromHeight(250),

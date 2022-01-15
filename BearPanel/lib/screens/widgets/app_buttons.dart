@@ -2,6 +2,7 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   VoidCallback onPressed;
   bool isEnabled;

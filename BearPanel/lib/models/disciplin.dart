@@ -3,10 +3,9 @@ class Disciplin {
   String status;
   int period;
   bool finalized;
-  List items;
+  List lessons;
 
-
-  Disciplin({required this.name, required this.period, required this.finalized, required this.items, required this.status});
+  Disciplin({required this.name, required this.period, required this.finalized, required this.lessons, required this.status});
 
   Map<String, dynamic> toMap(){
     return {
@@ -14,7 +13,7 @@ class Disciplin {
       'Período': period,//
       'Finalizada?': finalized, //
       'Status': status,
-      'Atividades': items,
+      'Atividades': lessons,
     };
   }
 }

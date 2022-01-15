@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ModalViewr extends StatelessWidget {
+class ModalView extends StatelessWidget {
   final Widget child;
   final double top;
   final double bottom;
 
-  const ModalViewr({
+  const ModalView({
     Key? key,
     required this.child,
     required this.top,
@@ -36,7 +36,6 @@ class ModalViewr extends StatelessWidget {
 
   Widget _buildHandle(BuildContext context) {
     final theme = Theme.of(context);
-
     return FractionallySizedBox(
       widthFactor: 0.25,
       child: Container(
