@@ -2,22 +2,22 @@ import 'package:bearpanel/models/user.dart';
 
 class AppGetValue {
 
-  static double getTotal(dynamic disciplin) {
+  static double getTotal(dynamic discipline) {
     double total = 0.0;
-    for(int i = 0; i < disciplin['Atividades'].length;i++)
-      total += disciplin['Atividades'][i]['Nota Total'];
+    for(int i = 0; i < discipline['Atividades'].length;i++)
+      total += discipline['Atividades'][i]['Nota Total'];
     return total;
   }
 
-  static double getAtual(dynamic disciplin) {
+  static double getAtual(dynamic discipline) {
     double atual = 0.0;
-    for(int i = 0; i < disciplin['Atividades'].length;i++)
-      atual += disciplin['Atividades'][i]['Nota Atual'];
+    for(int i = 0; i < discipline['Atividades'].length;i++)
+      atual += discipline['Atividades'][i]['Nota Atual'];
     return atual;
   }
 
-  static double getMedia(dynamic disciplin) {
-    return getAtual(disciplin) / getTotal(disciplin);
+  static double getMedia(dynamic discipline) {
+    return getAtual(discipline) / getTotal(discipline);
   }
 
   static double getMediaGeral(UserData user) {
@@ -30,6 +30,10 @@ class AppGetValue {
     }
     if(user.disciplines.length > 0) media /= user.disciplines.length;
     return media;
+  }
+
+  static String getStatus(dynamic discipline){
+    return AppGetValue.getMedia(discipline) >= 0.6 ? 'aprovado' : 'reprovado';
   }
 
 /*static double getTotal(UserData user, int index) {

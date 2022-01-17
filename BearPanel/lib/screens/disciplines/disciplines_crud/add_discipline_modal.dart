@@ -2,37 +2,33 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
+import 'package:bearpanel/screens/disciplines/lesson/lesson_data_struct.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
 import 'package:bearpanel/screens/widgets/app_form.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 
-class AddDisciplinModal extends StatefulWidget {
+//ignore: must_be_immutable
+class AddDisciplineModal extends StatefulWidget {
   UserData user;
-  AddDisciplinModal({Key? key, required this.user}) : super(key: key);
+  AddDisciplineModal({Key? key, required this.user}) : super(key: key);
 
   @override
-  _AddDisciplinModalState createState() => _AddDisciplinModalState();
+  _AddDisciplineModalState createState() => _AddDisciplineModalState();
 }
 
-class _AddDisciplinModalState extends State<AddDisciplinModal> {
+class _AddDisciplineModalState extends State<AddDisciplineModal> {
   Map<String, dynamic> disciplin_data = {
-    'Nome': '',//
-    'Período': 1,//
+    'Nome': '', //
+    'Período': 1, //
     'Finalizada?': false, //
-    'Status': 'reprovado',
     'Atividades': [],
   };
   late List<String> disciplines;
 
-  List<int> getList() {
-    List<int>? list_period = [1];
-    for (int i = 2; i <= widget.user.periods; i++) list_period.add(i);
-    return list_period;
-  }
-
   @override
   Widget build(BuildContext context) {
+    LessonsData lessons_data = LessonsData.onlyUser(user: widget.user);
     return Container(
       width: double.infinity,
       height: 450,
@@ -45,13 +41,8 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Adicionar Disciplina',
-                style: AppTextStyles.titleForm,
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              Text('Adicionar Disciplina', style: AppTextStyles.titleForm),
+              SizedBox(height: 30),
 
               Text('Nome', style: AppTextStyles.descForm),
               CustomForm(
@@ -63,9 +54,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                 keyboardType: TextInputType.name,
                 initialValue: '',
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
 
               Text('Período', style: AppTextStyles.descForm),
               Container(
@@ -83,7 +72,7 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                       disciplin_data['Período'] = newValue!;
                     });
                   },
-                  items: getList().map<DropdownMenuItem<int>>((int value) {
+                  items: lessons_data.getList().map<DropdownMenuItem<int>>((int value) {
                     return DropdownMenuItem<int>(
                       value: value,
                       child: Text(value.toString()),
@@ -91,12 +80,10 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                   }).toList(),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
 
               CheckboxListTile(
-                contentPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.zero,
                   title: Text('Disciplina finalizada?',
                       style: AppTextStyles.descForm),
                   activeColor: AppColors.black_pattern,
@@ -107,24 +94,25 @@ class _AddDisciplinModalState extends State<AddDisciplinModal> {
                       disciplin_data['Finalizada?'] = value!;
                     });
                   }),
+              SizedBox(height: 30),
 
-              SizedBox(
-                height: 30,
-              ),
-              CustomButton(title: 'Adicionar',
+              CustomButton(
+                  title: 'Adicionar',
                   isEnabled: true,
                   onPressed: () async {
                     widget.user.disciplines.add(disciplin_data);
                     await DatabaseService(uid: widget.user.uid).updateUserData(
-                      widget.user.name,
+                        widget.user.name,
                         widget.user.disciplines,
-                      widget.user.course_name,
-                      widget.user.periods
-                    );
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => NavigatorBase(spin_animation: true,)));
-                  }
-                  )
+                        widget.user.course_name,
+                        widget.user.periods);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigatorBase(
+                                  spin_animation: true,
+                                )));
+                  })
             ],
           ),
         ),

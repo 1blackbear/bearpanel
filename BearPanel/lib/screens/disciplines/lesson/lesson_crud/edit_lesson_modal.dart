@@ -49,23 +49,18 @@ class _EditLessonModalState extends State<EditLessonModal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Editar Atividade',
-                style: AppTextStyles.titleForm,
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              Text('Editar Atividade', style: AppTextStyles.titleForm),
+              SizedBox(height: 30),
 
               //Título da Atividade
               Text('Título', style: AppTextStyles.descForm),
               TextFormField(
-                initialValue: widget.discipline
-                    ['Atividades'][widget.index_lesson]['Titulo'],
+                initialValue: widget.discipline['Atividades']
+                    [widget.index_lesson]['Titulo'],
                 validator: (val) => val!.isEmpty ? '' : null,
                 onChanged: (val) {
-                  setState(() => widget.discipline
-                      ['Atividades'][widget.index_lesson]['Titulo'] = val);
+                  setState(() => widget.discipline['Atividades']
+                      [widget.index_lesson]['Titulo'] = val);
                 },
                 readOnly: !_edit_title,
                 keyboardType: TextInputType.name,
@@ -98,9 +93,7 @@ class _EditLessonModalState extends State<EditLessonModal> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
 
               //Nota Recebida
               Text('Nota Recebida', style: AppTextStyles.descForm),
@@ -115,11 +108,11 @@ class _EditLessonModalState extends State<EditLessonModal> {
                 onChanged: (val) {
                   setState(() {
                     if (val == "") {
-                      widget.discipline['Atividades']
-                      [widget.index_lesson]['Nota Atual'] = 0.0;
+                      widget.discipline['Atividades'][widget.index_lesson]
+                          ['Nota Atual'] = 0.0;
                     } else {
-                      widget.discipline['Atividades']
-                      [widget.index_lesson]['Nota Atual'] = double.parse(val);
+                      widget.discipline['Atividades'][widget.index_lesson]
+                          ['Nota Atual'] = double.parse(val);
                     }
                   });
                 },
@@ -154,9 +147,7 @@ class _EditLessonModalState extends State<EditLessonModal> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
 
               //Nota Total
               Text('Nota total da atividade', style: AppTextStyles.descForm),
@@ -171,11 +162,11 @@ class _EditLessonModalState extends State<EditLessonModal> {
                 onChanged: (val) {
                   setState(() {
                     if (val == "") {
-                      widget.discipline['Atividades']
-                      [widget.index_lesson]['Nota Total'] = 0.0;
+                      widget.discipline['Atividades'][widget.index_lesson]
+                          ['Nota Total'] = 0.0;
                     } else {
-                      widget.discipline['Atividades']
-                      [widget.index_lesson]['Nota Total'] = double.parse(val);
+                      widget.discipline['Atividades'][widget.index_lesson]
+                          ['Nota Total'] = double.parse(val);
                     }
                   });
                 },
@@ -210,9 +201,7 @@ class _EditLessonModalState extends State<EditLessonModal> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
 
               //Atualizar
               CustomButton(
@@ -231,7 +220,6 @@ class _EditLessonModalState extends State<EditLessonModal> {
                                 builder: (context) => NavigatorBase(
                                       spin_animation: true,
                                     ))));
-                    //
                   })
             ],
           ),

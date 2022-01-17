@@ -1,7 +1,7 @@
 import 'package:bearpanel/models/user.dart';
-import '../../../models/draggable_list.dart';
+import '../../models/draggable_list.dart';
 
-class AllDisciplinesList {
+class DisciplinesListData {
   static List<DraggableList> getLists(UserData data) {
     return [
       DraggableList(
@@ -17,5 +17,17 @@ class AllDisciplinesList {
       if (!data.disciplines[i]['Finalizada?'])
         list.add(new DraggableListItem(title: data.disciplines[i]['Nome']));
     return list;
+  }
+
+  static int getIndexList(UserData user, String current) {
+    int index = 0;
+    try {
+      user.disciplines.forEach((e) {
+        if (e['Nome'] == current)
+          throw "";
+        index++;
+      });
+    } catch (e) {}
+    return index;
   }
 }

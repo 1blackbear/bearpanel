@@ -6,10 +6,11 @@ import 'package:bearpanel/screens/widgets/app_form.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class AddLessonModal extends StatefulWidget {
   UserData user;
-  dynamic disciplin;
-  AddLessonModal({Key? key, required this.user, required this.disciplin})
+  dynamic discipline;
+  AddLessonModal({Key? key, required this.user, required this.discipline})
       : super(key: key);
 
   @override
@@ -17,19 +18,14 @@ class AddLessonModal extends StatefulWidget {
 }
 
 class _AddLessonModalState extends State<AddLessonModal> {
+
+  late List<String> disciplines;
+
   Map<String, dynamic> lesson_data = {
     'Titulo': '', //
     'Nota Atual': 0.0, //
     'Nota Total': 0.0, //
   };
-  double teste = 0.0;
-  late List<String> disciplines;
-
-  List<int> getList() {
-    List<int>? list_period = [1];
-    for (int i = 2; i <= widget.user.periods; i++) list_period.add(i);
-    return list_period;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +41,9 @@ class _AddLessonModalState extends State<AddLessonModal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Adicionar Atividade',
-                style: AppTextStyles.titleForm,
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              Text('Adicionar Atividade', style: AppTextStyles.titleForm),
+              SizedBox(height: 30),
+
               Text('Título', style: AppTextStyles.descForm),
               CustomForm(
                 enabled: true,
@@ -62,9 +54,8 @@ class _AddLessonModalState extends State<AddLessonModal> {
                 keyboardType: TextInputType.name,
                 initialValue: '',
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
+
               Text('Nota Recebida', style: AppTextStyles.descForm),
               CustomForm(
                 enabled: true,
@@ -75,9 +66,8 @@ class _AddLessonModalState extends State<AddLessonModal> {
                 keyboardType: TextInputType.number,
                 initialValue: '',
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
+
               Text('Nota total da atividade', style: AppTextStyles.descForm),
               CustomForm(
                 enabled: true,
@@ -88,11 +78,10 @@ class _AddLessonModalState extends State<AddLessonModal> {
                 keyboardType: TextInputType.number,
                 initialValue: '',
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
+
               CustomButton(
-                isEnabled: true,
+                  isEnabled: true,
                   title: 'Adicionar',
                   onPressed: () async {
                     Map<String, dynamic> new_lesson_data = {
@@ -103,8 +92,7 @@ class _AddLessonModalState extends State<AddLessonModal> {
                           double.parse(lesson_data['Nota Total'].toString()), //
                     };
 
-                    widget.disciplin['Atividades']
-                        .add(new_lesson_data);
+                    widget.discipline['Atividades'].add(new_lesson_data);
 
                     await DatabaseService(uid: widget.user.uid).updateUserData(
                         widget.user.name,
