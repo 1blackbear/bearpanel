@@ -3,6 +3,7 @@ import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/core/app_data_value.dart';
 import 'package:bearpanel/models/user.dart';
+import 'package:bearpanel/screens/disciplines/disciplines_crud/edit_discipline_modal.dart';
 import 'package:bearpanel/screens/widgets/app_cards.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -74,7 +75,7 @@ class _LessonsPageState extends State<LessonsPage> {
                                   child: Opacity(
                                     opacity: a1.value,
                                     child: ModalView(
-                                      child: Container(),
+                                      child: EditDisciplineModal(discipline: widget.discipline, user: widget.user),
                                       top: 150,
                                       bottom: 120,
                                     ),

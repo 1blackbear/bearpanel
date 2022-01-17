@@ -2,10 +2,9 @@ import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
 import 'package:flutter/material.dart';
-
 import 'add_discipline_modal.dart';
 
-//ignore: must be immutable
+//ignore: must_be_immutable
 class AddDiscipline extends StatelessWidget {
   UserData user;
   AddDiscipline({Key? key, required this.user}) : super(key: key);
