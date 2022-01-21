@@ -1,13 +1,15 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
+import 'package:bearpanel/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'add_discipline_modal.dart';
 
 //ignore: must_be_immutable
 class AddDiscipline extends StatelessWidget {
   UserData user;
-  AddDiscipline({Key? key, required this.user}) : super(key: key);
+  AuthService auth;
+  AddDiscipline({Key? key, required this.user, required this.auth}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class AddDiscipline extends StatelessWidget {
                   child: Opacity(
                     opacity: a1.value,
                     child: ModalView(
-                      child: AddDisciplineModal(user: user),
+                      child: AddDisciplineModal(user: user, auth: auth,),
                       top: 170,
                       bottom: 130,
                     ),

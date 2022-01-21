@@ -1,6 +1,6 @@
 import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/screens/authenticate/sing_in.dart';
-import 'package:bearpanel/screens/widgets/loading.dart';
+import 'package:bearpanel/screens/widgets/app_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
@@ -21,6 +21,6 @@ class _AuthFileState extends State<AuthFile> {
       else if (auth.user_state == null)
         return SignIn();
       else
-        return NavigatorBase(spin_animation: false,);
+        return NavigatorBase(auth: auth);
   }
 }

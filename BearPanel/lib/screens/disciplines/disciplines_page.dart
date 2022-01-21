@@ -4,6 +4,7 @@ import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/disciplines_crud/add_discipline_widget.dart';
 import 'package:bearpanel/screens/disciplines/lesson/lessons_page.dart';
+import 'package:bearpanel/services/auth.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ import 'disciplines_data_struct.dart';
 //ignore: must_be_immutable
 class DisciplinesPage extends StatefulWidget {
   UserData user;
-  DisciplinesPage({Key? key, required this.user}) : super(key: key);
+  AuthService auth;
+  DisciplinesPage({Key? key, required this.user, required this.auth}) : super(key: key);
 
   @override
   _DisciplinesPageState createState() => _DisciplinesPageState();
@@ -57,7 +59,7 @@ class _DisciplinesPageState extends State<DisciplinesPage> {
             child: Center(child: Text("Nenhuma disciplina\n cadastrada", style: AppTextStyles.emptyStyle,textAlign: TextAlign.center,)),)
           ),
         ),
-       AddDiscipline(user: widget.user)
+       AddDiscipline(user: widget.user, auth: widget.auth)
       ],
     );
   }

@@ -213,13 +213,13 @@ class _EditLessonModalState extends State<EditLessonModal> {
                             widget.user!.name,
                             widget.user!.disciplines,
                             widget.user!.course_name,
-                            widget.user!.periods)
-                        .then((e) => Navigator.push(
+                            widget.user!.periods);
+                        /*.then((e) => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => NavigatorBase(
                                       spin_animation: true,
-                                    ))));
+                                    ))));*/
                   })
             ],
           ),

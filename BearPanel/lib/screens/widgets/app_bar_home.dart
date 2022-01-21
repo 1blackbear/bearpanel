@@ -1,5 +1,5 @@
-import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_date.dart';
+import 'package:bearpanel/screens/widgets/app_logout.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/services/auth.dart';
@@ -8,7 +8,7 @@ import 'app_cards.dart';
 
 class AppBarHome extends PreferredSize {
   final UserData? user;
-  final AuthService? auth;
+  final AuthService auth;
 
   AppBarHome({required this.user, required this.auth})
       : super(
@@ -45,12 +45,7 @@ class AppBarHome extends PreferredSize {
                 Positioned(
                   right: 0,
                   top: 70,
-                  child: GestureDetector(
-                    onTap: () async {
-                      await auth!.signOut();
-                    },
-                    child: Icon(Icons.logout, size: 32, color: AppColors.white)
-                  ),
+                  child: Logout(auth: auth)
                 ),
 
               ],

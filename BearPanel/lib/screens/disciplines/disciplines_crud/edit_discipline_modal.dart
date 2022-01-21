@@ -131,12 +131,12 @@ class _EditDisciplineModalState extends State<EditDisciplineModal> {
                     setState(() {
                       AppNavigator.activate_detail = false;
                     });
-                    Navigator.push(
+                   /* Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => NavigatorBase(
                                   spin_animation: true,
-                                )));
+                                )));*/
                     await DatabaseService(uid: widget.user.uid).updateUserData(
                         widget.user.name,
                         widget.user.disciplines,

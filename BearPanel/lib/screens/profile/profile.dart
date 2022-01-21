@@ -1,5 +1,7 @@
+import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/screens/widgets/app_bar_login.dart';
 import 'package:bearpanel/services/auth.dart';
+import 'package:bearpanel/services/auth_file.dart';
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
@@ -39,6 +41,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   leading: Icon(Icons.logout),
                   onTap: () async {
                     await widget.auth.signOut();
+                    if (AppNavigator.activate_detail_static)
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context) => AuthFile()),(route) => false);
                   },
                 ),
               ],

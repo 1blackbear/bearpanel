@@ -196,12 +196,8 @@ class _SignUpState extends State<SignUp> {
                     });
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         email, password, name, course, int.parse(_periods));
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NavigatorBase(
-                              spin_animation: false,
-                            )));
+                    Navigator.pushAndRemoveUntil(context,
+                        MaterialPageRoute(builder: (context) => NavigatorBase(auth: _auth,)),(route) => false);
                     switch (result) {
                       case 1:
                         loading = false;
