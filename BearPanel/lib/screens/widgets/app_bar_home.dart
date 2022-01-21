@@ -8,7 +8,7 @@ import 'app_cards.dart';
 
 class AppBarHome extends PreferredSize {
   final UserData? user;
-  final AuthService auth;
+  final AuthService? auth;
 
   AppBarHome({required this.user, required this.auth})
       : super(
@@ -47,7 +47,7 @@ class AppBarHome extends PreferredSize {
                   top: 70,
                   child: GestureDetector(
                     onTap: () async {
-                      await auth.signOut();
+                      await auth!.signOut();
                     },
                     child: Icon(Icons.logout, size: 32, color: AppColors.white)
                   ),

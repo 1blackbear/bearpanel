@@ -49,7 +49,7 @@ class _LessonsPageState extends State<LessonsPage> {
                             "${AppGetValue.getAtual(widget.discipline) == 100 ? 100 : AppGetValue.getAtual(widget.discipline).toStringAsFixed(2)}/${AppGetValue.getTotal(widget.discipline) == 100 ? 100 : AppGetValue.getTotal(widget.discipline).toStringAsFixed(2)}"),
                     MiniCard(
                         title:
-                            "${AppGetValue.getMedia(widget.discipline) == 0.0 || AppGetValue.getMedia(widget.discipline).isNaN ? 0 : AppGetValue.getMedia(widget.discipline) == 1 ? 100 : AppGetValue.getMedia(widget.discipline).toStringAsFixed(2).substring(2)}%"),
+                            "${AppGetValue.getPercentTitle(AppGetValue.getMedia(widget.discipline))}%"),
                     MiniCard(title: AppGetValue.getStatus(widget.discipline)),
                   ],
                 ),

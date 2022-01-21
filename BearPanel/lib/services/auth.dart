@@ -1,8 +1,4 @@
 import 'dart:async';
-import 'package:bearpanel/models/disciplin.dart';
-import 'package:bearpanel/models/user.dart';
-import 'package:bearpanel/screens/authenticate/sing_in.dart';
-import 'package:bearpanel/screens/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -63,6 +59,7 @@ class AuthService extends ChangeNotifier {
       await DatabaseService(uid: user!.uid).updateUserData(nome, [], course_name, periods);
       //user.sendEmailVerification();
       _getUser();
+      return result;
     } on FirebaseAuthException catch  (e) {
       print('Failed with error code: ${e.code}');
       if (e.code == 'email-already-in-use') {
@@ -79,7 +76,6 @@ class AuthService extends ChangeNotifier {
       await _auth.signOut();
       _getUser();
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -89,7 +85,6 @@ class AuthService extends ChangeNotifier {
     try {
       return await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }

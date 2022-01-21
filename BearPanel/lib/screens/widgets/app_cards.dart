@@ -84,7 +84,7 @@ class InitialCard extends StatelessWidget {
             Text("Média: ${AppGetValue.getMedia(discipline) == 0.0 || AppGetValue.getMedia(discipline).isNaN ? 0 : AppGetValue.getMedia(discipline) == 1 ? 100 : AppGetValue.getMedia(discipline).toStringAsFixed(2).substring(2)}%",
                 style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12)),
             SizedBox(height: 5),
-            Text("Status: ${discipline['Status']}", style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12)),
+            Text("Status: ${AppGetValue.getStatus(discipline)}", style: TextStyle(color: Color(0xFF8b8b8b), fontSize: 12)),
           ],
         ),
       ),

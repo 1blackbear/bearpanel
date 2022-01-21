@@ -1,4 +1,5 @@
 import 'package:bearpanel/core/app_colors.dart';
+import 'package:bearpanel/core/app_navigator.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/screens/authenticate/auth_screen.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
@@ -195,7 +196,12 @@ class _SignUpState extends State<SignUp> {
                     });
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         email, password, name, course, int.parse(_periods));
-                    await _auth.signOut();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigatorBase(
+                              spin_animation: false,
+                            )));
                     switch (result) {
                       case 1:
                         loading = false;

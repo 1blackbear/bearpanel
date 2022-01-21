@@ -36,20 +36,15 @@ class AppGetValue {
     return AppGetValue.getMedia(discipline) >= 0.6 ? 'aprovado' : 'reprovado';
   }
 
-/*static double getTotal(UserData user, int index) {
-    double total = 0.0;
-    for(int i = 0; i < user.disciplines[index]['Atividades'].length;i++)
-      total += user.disciplines[index]['Atividades'][i]['Nota Total'];
-    return total;
-  }*/
+  static String getPercentTitle(double value){
+    if (value.toString().length > 4)
+      return "${value.toStringAsFixed(2).substring(2)}.${value.toStringAsFixed(3).substring(4)}";
+    else if (value == 0 || value.isNaN)
+      return 0.toString();
+    else if (value == 1)
+      return 100.toString();
+    else
+      return value.toStringAsFixed(2).substring(2);
+  }
 
-/*static double getAtual(UserData user, int index) {
-    double atual = 0.0;
-    for(int i = 0; i < user.disciplines[index]['Atividades'].length;i++)
-      atual += user.disciplines[index]['Atividades'][i]['Nota Atual'];
-    return atual;
-  }*/
-/*static double getMedia(UserData user, int index) {
-    return getAtual(user, index) / getTotal(user, index);
-  }*/
 }

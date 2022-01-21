@@ -11,18 +11,6 @@ class ChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String getTitle(){
-      double value = AppGetValue.getMediaGeral(user);
-      if (value.toString().length > 4)
-        return "${value.toStringAsFixed(2).substring(2)}.${value.toStringAsFixed(3).substring(4)}";
-      else if (value == 0)
-        return 0.toString();
-      else if (value == 1)
-        return 100.toString();
-      else
-        return value.toStringAsFixed(2).substring(2);
-    }
-
     return CircularPercentIndicator(
       radius: 120.0,
       animation: true,
@@ -32,7 +20,7 @@ class ChartWidget extends StatelessWidget {
       arcType: ArcType.HALF,
       center: Text.rich(
         TextSpan(
-            text: getTitle(),
+            text: AppGetValue.getPercentTitle(AppGetValue.getMediaGeral(user)),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
             children: [
               TextSpan(text: "%", style: TextStyle(fontSize: 15)),
