@@ -6,6 +6,7 @@ import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/disciplines_crud/edit_discipline_modal.dart';
 import 'package:bearpanel/screens/widgets/app_cards.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
+import 'package:bearpanel/services/auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'lesson_crud/retrieve_lesson_widget.dart';
@@ -15,11 +16,13 @@ class LessonsPage extends StatefulWidget {
   UserData user;
   dynamic discipline;
   Widget return_page;
+  AuthService auth;
   LessonsPage(
       {Key? key,
       required this.discipline,
       required this.user,
-      required this.return_page})
+      required this.return_page,
+      required this.auth})
       : super(key: key);
 
   @override
@@ -75,7 +78,7 @@ class _LessonsPageState extends State<LessonsPage> {
                                   child: Opacity(
                                     opacity: a1.value,
                                     child: ModalView(
-                                      child: EditDisciplineModal(discipline: widget.discipline, user: widget.user),
+                                      child: EditDisciplineModal(auth: widget.auth,discipline: widget.discipline, user: widget.user),
                                       top: 150,
                                       bottom: 120,
                                     ),
@@ -112,7 +115,7 @@ class _LessonsPageState extends State<LessonsPage> {
 
                 Divider(height: 1, color: AppColors.black_pattern),
                 SizedBox(height: 5),
-                RetrieveLesson(user: widget.user, discipline: widget.discipline),
+                RetrieveLesson(user: widget.user, discipline: widget.discipline, auth: widget.auth),
                 SizedBox(height: 5),
                 Divider(height: 1, color: AppColors.black_pattern),
 

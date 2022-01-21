@@ -1,8 +1,9 @@
 import 'package:bearpanel/core/app_colors.dart';
-import 'package:bearpanel/core/app_navigator.dart';
+import 'package:bearpanel/core/app_routes.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
+import 'package:bearpanel/services/auth.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,11 +13,13 @@ class EditLessonModal extends StatefulWidget {
   UserData? user;
   dynamic discipline;
   int index_lesson;
+  AuthService auth;
   EditLessonModal({
     Key? key,
     required this.user,
     required this.discipline,
     required this.index_lesson,
+    required this.auth
   }) : super(key: key);
 
   @override
@@ -213,13 +216,15 @@ class _EditLessonModalState extends State<EditLessonModal> {
                             widget.user!.name,
                             widget.user!.disciplines,
                             widget.user!.course_name,
-                            widget.user!.periods);
-                        /*.then((e) => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NavigatorBase(
-                                      spin_animation: true,
-                                    ))));*/
+                            widget.user!.periods)
+                        .then((e) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AppRoutes(
+                              spin_animation: true,
+                              userData: widget.user!,
+                              auth: widget.auth,
+                            ))));
                   })
             ],
           ),

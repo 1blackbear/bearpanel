@@ -1,9 +1,11 @@
 import 'package:bearpanel/core/app_colors.dart';
 import 'package:bearpanel/core/app_navigator.dart';
+import 'package:bearpanel/core/app_routes.dart';
 import 'package:bearpanel/core/app_text_styles.dart';
 import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/lesson/lesson_data_struct.dart';
 import 'package:bearpanel/screens/widgets/app_buttons.dart';
+import 'package:bearpanel/services/auth.dart';
 import 'package:bearpanel/services/database.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,8 @@ import 'package:flutter/material.dart';
 class EditDisciplineModal extends StatefulWidget {
   UserData user;
   dynamic discipline;
-  EditDisciplineModal({Key? key, required this.user, required this.discipline})
+  AuthService auth;
+  EditDisciplineModal({Key? key, required this.user, required this.discipline, required this.auth})
       : super(key: key);
 
   @override
@@ -131,12 +134,14 @@ class _EditDisciplineModalState extends State<EditDisciplineModal> {
                     setState(() {
                       AppNavigator.activate_detail = false;
                     });
-                   /* Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NavigatorBase(
-                                  spin_animation: true,
-                                )));*/
+                            builder: (context) => AppRoutes(
+                              spin_animation: true,
+                              userData: widget.user,
+                              auth: widget.auth,
+                            )));
                     await DatabaseService(uid: widget.user.uid).updateUserData(
                         widget.user.name,
                         widget.user.disciplines,

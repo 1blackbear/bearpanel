@@ -4,6 +4,7 @@ import 'package:bearpanel/models/user.dart';
 import 'package:bearpanel/screens/disciplines/lesson/lesson_crud/add/add_lesson_widget.dart';
 import 'package:bearpanel/screens/disciplines/lesson/lesson_crud/delete_lesson_widget.dart';
 import 'package:bearpanel/screens/widgets/app_modal.dart';
+import 'package:bearpanel/services/auth.dart';
 import 'package:flutter/material.dart';
 import '../lesson_data_struct.dart';
 import 'edit_lesson_modal.dart';
@@ -12,7 +13,8 @@ import 'edit_lesson_modal.dart';
 class RetrieveLesson extends StatefulWidget {
   dynamic discipline;
   UserData user;
-  RetrieveLesson({Key? key, required this.discipline, required this.user})
+  AuthService auth;
+  RetrieveLesson({Key? key, required this.discipline, required this.user, required this.auth})
       : super(key: key);
 
   @override
@@ -52,6 +54,7 @@ class _RetrieveLessonState extends State<RetrieveLesson> {
                                                   child: ModalView(
                                                     child: EditLessonModal(
                                                       user: widget.user,
+                                                      auth: widget.auth,
                                                       discipline:
                                                           widget.discipline,
                                                       index_lesson: lesson_data
